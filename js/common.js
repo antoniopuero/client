@@ -110,11 +110,16 @@
 		handlers:{
 			tableJobSet: function(e){
 				if(e.data!==null){
-
+					console.log('if');
 				var jsonData = (new Connection()).getJobs(parseInt(e.data, 10));
-				}
+				e.preventDefault();
+				$('#container').append((new Builder()).buildTable(jsonData));
+				} else {
+					console.log('else');
+				var jsonData = (new Connection()).getJobs(parseInt(e.data, 10));
 				e.preventDefault();
 				$('#container').empty().append((new Builder()).buildTable(jsonData));
+				}
 			}
 		}
 	}
