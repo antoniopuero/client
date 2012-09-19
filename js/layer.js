@@ -44,7 +44,7 @@ Connection.prototype = {
 		в локалСторадж и больше не лазаем на сервер, тоесть если
 		есть лС то переписуем эту ф-цию чтобы она лазала в локалстор*/
 		var jobs = [
-			{//1 is id
+			{	id: 1,
 				name: 'job1',
 				type: 1,
 				parameters:{
@@ -54,7 +54,7 @@ Connection.prototype = {
 				},
 				status: 'in process'
 			},
-			{//1 is id
+			{	id: 2,
 				name: 'job3',
 				type: 1,
 				parameters:{
@@ -65,6 +65,7 @@ Connection.prototype = {
 				status: 'in process'
 			},
 			{
+				id: 3,
 				name: 'job2',
 				type: 'set',
 				jobs:[

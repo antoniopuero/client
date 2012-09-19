@@ -3,6 +3,7 @@
 		this.textCols = (config)?config.textCols:30;
 		this.textRows = (config)?config.textRows:50;
 
+
 	}
 	Builder.prototype = {
 	 	firstLetter: function(word){
@@ -74,7 +75,7 @@
 					cell = $(cell);
 					if (cell.text() === 'set'){
 						row.addClass('set');
-						table.delegate('.set', 'click', self.handlers.tableJobSet);
+						table.delegate('.set', 'click',  row.attr('id'), self.handlers.tableJobSet);
 					}
 				})
 			})
@@ -96,17 +97,24 @@
 			table.append($('<thead></thead>').append(tr)).append($('<tbody></tbody>'));
 			table.dataTable( {
 				"bProcessing": true,
-				'aaData': jobsObject,
-				"aoColumns": columnsConfig
+				"aaData": jobsObject,
+				"aoColumns": columnsConfig,
+				"fnRowCallback": function(row, data){
+					$(row).attr('id', data.id);
+					return row;
+				}
 			} );
 			this.addEventToSetRow(table);
 		return table;
 		},
 		handlers:{
 			tableJobSet: function(e){
-				var jsonData = (new Connection()).getJobs();
+				if(e.data!==null){
+
+				var jsonData = (new Connection()).getJobs(parseInt(e.data, 10));
+				}
 				e.preventDefault();
-				$('#container').append((new Builder()).buildTable(jsonData));
+				$('#container').empty().append((new Builder()).buildTable(jsonData));
 			}
 		}
 	}
@@ -114,14 +122,16 @@
 
 /*-------------------------------Handlers--------------------------------*/
 $(document).ready(function(){	
-	$('#form_container').delegate('.int','keyup', function(e){
-		if((47>e.which)||(e.which>57)){
-			e.target.value = e.target.value.replace(/[^\-\d]+/g,'');
-		}
+	$('#form_container').delegate('.int','keypress', function(e){
+		if((e.which<47)||(e.which>57)){
+			return false;
+		} 
 	})
-	$('#form_container').delegate('.float','keyup', function(e){
-		if((47>e.which)||(e.which>57)){
-			e.target.value = e.target.value.replace(/[^\-\d\.]+/g,'');
+	$('#form_container').delegate('.float','keypress', function(e){
+		if((e.which<46)
+			||(e.which>57)
+			||(($(this).val().match(/\./))&&(e.which===46))){
+			return false;
 		}
 	})
 	$('#form_container').delegate('#send','click', function(e){
