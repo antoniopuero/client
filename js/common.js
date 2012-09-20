@@ -14,17 +14,9 @@
 			element;
 
 			for(var prop in projectСonfig){
-				if(projectСonfig[prop] === 'int'){
-					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><input type="text" name="'+prop+'" class="int" size="40">');
+				if((projectСonfig[prop] === 'int')||(projectСonfig[prop] === 'float')||(projectСonfig[prop] === 'string')){
+					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><input type="text" name="'+prop+'" class="'+projectСonfig[prop]+'" size="40">');
 					fragment.append(element); 
-				}
-				else if(projectСonfig[prop] === 'float')	{
-					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><input type="text" name="'+prop+'" class="float" size="40">');
-					fragment.append(element);
-				}
-				else if(projectСonfig[prop] === 'string')	{
-					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><input type="text" name="'+prop+'" class="string" size="40">');
-					fragment.append(element);
 				}
 				else if(projectСonfig[prop] === 'bool')	{
 					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><span>True:</span><input type="radio" name="'+prop+'" class="bool.true"><span>False:</span><input type="radio" name="'+prop+'" class="bool.false">');
@@ -126,16 +118,62 @@
 
 
 /*-------------------------------Handlers--------------------------------*/
-$(document).ready(function(){	
+$(document).ready(function(){
+	var keyFlag = true,
+		ctrlKey = true,
+		keyNames = {
+			'TAB': 9,
+		    'ENTER': 13,
+		    'BACKSPACE': 8,
+		    'CTRL': 17,
+		    'ALT': 18,
+		    'LEFT': 37,
+		    'RIGHT': 39,
+		    //'INSERT': 45,
+		    //'DELETE': 46
+		};
 	$('#form_container').delegate('.int','keypress', function(e){
-		if((e.which<47)||(e.which>57)){
+		keyFlag = true;
+		ctrlKey =true;
+		for(var prop in keyNames){
+			if((e.keyCode == keyNames[prop])){//for Firefox!!!
+				keyFlag = false;
+			}
+		}
+		if(e.ctrlKey&&(
+				(e.which === 97)//ctrl+a
+				||(e.which === 99)//ctrl+c
+				||(e.which === 118)//ctrl+v
+				||(e.which === 120)//ctrl+x
+				)){
+			ctrlKey = false;
+		}
+		if(ctrlKey&&keyFlag&&((e.which<48)||(e.which>57))){
 			return false;
 		} 
 	})
 	$('#form_container').delegate('.float','keypress', function(e){
-		if((e.which<46)
+		keyFlag = true;
+		ctrlKey =true;
+		for(var prop in keyNames){
+			if(e.keyCode == keyNames[prop]){ // for Firefox!
+				keyFlag = false;
+			}
+		}
+		if(e.ctrlKey&&(
+				(e.which === 97)//ctrl+a
+				||(e.which === 99)//ctrl+c
+				||(e.which === 118)//ctrl+v
+				||(e.which === 120)//ctrl+x
+				)){
+			ctrlKey = false;
+		}
+		if( ctrlKey
+			&&keyFlag
+			&&((e.which<46)
 			||(e.which>57)
-			||(($(this).val().match(/\./))&&(e.which===46))){
+			||(e.which === 47))
+			||(($(this).val().match(/\./))&&(e.which === 46))){
 			return false;
 		}
 	})
