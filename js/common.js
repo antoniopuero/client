@@ -1,30 +1,43 @@
 	function Builder (config) {
-		this.inputSize=(config)?config.inputSize:40;
-		this.textCols = (config)?config.textCols:30;
-		this.textRows = (config)?config.textRows:50;
-
-
+		// use config object
 	}
 	Builder.prototype = {
 	 	firstLetter: function(word){
 			return word.substr(0,1).toUpperCase() + word.substr(1);
 		},
-		buildForm: function(projectСonfig){
-			var fragment = $('<form id ="new_project" name="data" method="post"></form>'),
-			element;
-
+		buildForm: function(projectСonfig, container){
+			if(!container){
+				var fragment = $('<form id ="new_project" name="data" method="post"></form>'),
+					tabsMenu = $('<div id="tabs"></div>'),
+					count = 1,
+					element,
+					self = fragment;
+			} else {
+				self = container;
+			}
 			for(var prop in projectСonfig){
-				if((projectСonfig[prop] === 'int')||(projectСonfig[prop] === 'float')||(projectСonfig[prop] === 'string')){
+				if((typeof projectСonfig[prop] === 'object')&&(projectСonfig[prop]['tabName'])){
+					if(count === 1){
+						tabsMenu.append($('<ul class = "tabs"></ul><div class="panes"></div>'));
+					}
+					tabsMenu.find('.tabs').append($('<li><a href="#tabs-'+count+'">'+projectСonfig[prop]['tabName']+'</a></li>'));
+					tabsMenu.find('.panes').append($('<div id = "tabs-'+count+'"></div>'));
+					this.buildForm(projectСonfig[prop], tabsMenu.find('#tabs-'+count));
+					count+=1;
+					console.log(tabsMenu);
+					self.append(tabsMenu);
+				}
+				else if((projectСonfig[prop] === 'int')||(projectСonfig[prop] === 'float')||(projectСonfig[prop] === 'string')){
 					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><input type="text" name="'+prop+'" class="'+projectСonfig[prop]+'" size="40">');
-					fragment.append(element); 
+					self.append(element); 
 				}
 				else if(projectСonfig[prop] === 'bool')	{
 					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><span>True:</span><input type="radio" name="'+prop+'" class="bool.true"><span>False:</span><input type="radio" name="'+prop+'" class="bool.false">');
-					fragment.append(element);
+					self.append(element);
 				}
 				else if(projectСonfig[prop] === 'blob')	{
 					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><textarea name="'+prop+'" class="blob" cols="30" rows="15">');
-					fragment.append(element);
+					self.append(element);
 				}
 				else if(projectСonfig[prop].type === 'list.check')	{
 					element =  $('<fieldset></fieldset>');
@@ -34,7 +47,7 @@
 						element.append($('<p><input type="checkbox" name="'+projectСonfig[prop][i]+'" class="list.checks">'+projectСonfig[prop][i]+'</p>'));
 						i+=1;
 					}
-					fragment.append(element);
+					self.append(element);
 				}
 				else if(projectСonfig[prop].type === 'list.option')	{
 					element =  $('<select></select>');
@@ -43,11 +56,15 @@
 						element.append($('<option value="'+projectСonfig[prop][i]+'" class="list.option">'+projectСonfig[prop][i]+'</option>'));
 						i+=1;
 					}
-					fragment.append('<p>'+this.firstLetter(prop.toString())+'</p>').append(element);
+					self.append('<p>'+this.firstLetter(prop.toString())+'</p>').append(element);
 				}
 			}
-			fragment.append($('<button id="send">Send</button>'));
-			return fragment;
+
+			self.find('ul.tabs').tabs('div.panes > div');
+			if(!container){
+				self.append($('<button id="send">Send</button>'));
+				return self;
+			}
 		},
 		getJSON: function(formObject){//доработать надо все четко продумать
 			var json = {};
@@ -67,7 +84,7 @@
 					cell = $(cell);
 					if (cell.text() === 'set'){
 						row.addClass('set');
-						table.delegate('.set', 'click',  row.attr('id'), self.handlers.tableJobSet);
+						table.delegate('.set', 'click',  row.attr('id'), Events.tableJobSet);
 					}
 				})
 			})
@@ -98,24 +115,8 @@
 			} );
 			this.addEventToSetRow(table);
 		return table;
-		},
-		handlers:{
-			tableJobSet: function(e){
-				if(e.data!==null){
-					console.log('if');
-				var jsonData = (new Connection()).getJobs(parseInt(e.data, 10));
-				e.preventDefault();
-				$('#container').append((new Builder()).buildTable(jsonData));
-				} else {
-					console.log('else');
-				var jsonData = (new Connection()).getJobs(parseInt(e.data, 10));
-				e.preventDefault();
-				$('#container').empty().append((new Builder()).buildTable(jsonData));
-				}
-			}
 		}
 	}
-
 
 /*-------------------------------Handlers--------------------------------*/
 $(document).ready(function(){
@@ -179,9 +180,9 @@ $(document).ready(function(){
 	})
 	$('#form_container').delegate('#send','click', function(e){
 		e.preventDefault();
+		$('.modalCloseImg').trigger('click');
 		var b = new Builder(),
 		data = (new Connection()).send();
-		$(this).append(b.buildForm(data));
 		console.log(b.getJSON($('#new_project')));
 
 	})

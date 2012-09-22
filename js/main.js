@@ -5,8 +5,8 @@ $(document).ready(function(){
 	$('#clk1').click(function(e){
 		var jsonData = (new Connection()).send();
 		e.preventDefault();
-		c.append((new Builder()).buildForm(jsonData));
-		c.arcticmodal();
+		c.html('').append((new Builder()).buildForm(jsonData));
+		c.modal();
 	})
-	$('#clk2').click((new Builder()).handlers.tableJobSet);
+	$('#clk2').click(Events.tableJobSet);
 });

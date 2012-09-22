@@ -20,12 +20,20 @@ Connection.prototype = {
 		получение джейсон-строчки,
 		парсинг обьекта,
 		и уж потом возврат обьект*/
-		return{
-			a: 'int',
-			b: 'float',
-			c: 'bool',
-			d: 'blob',
-			e: {
+		return {
+			tab1:{
+				tabName: 'digits',
+				b: 'float',	
+				a: 'int'
+			},
+			tab2: {
+				tabName: 'other',
+				c: 'bool',
+				d: 'blob',
+			},
+			tab3:{
+				tabName: 'lists',
+				e: {
 				type: 'list.check',
 				0: 'el1',
 				1: 'el2',
@@ -37,6 +45,7 @@ Connection.prototype = {
 				1: 'el2',
 				2: 'el3'
 			}
+		}
 		};
 	},
 	getJobs: function(){
