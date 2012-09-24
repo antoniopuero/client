@@ -92,6 +92,7 @@
 		},
 		buildTable: function(jobsObject, container){
 			var table,
+				self = this,
 				tr = $('<tr></tr>'),
 				columnsConfig = [
 					{ 'mData': 'name' },
@@ -120,9 +121,12 @@
 				"fnRowCallback": function(row, data){
 					$(row).attr('id', data.id);
 					return row;
+				},
+				"fnDrawCallback": function(){
+					self.addEventToSetRow(table);
 				}
 			} );
-			this.addEventToSetRow(table);
+			//this.addEventToSetRow(table);
 		return table;
 		}
 	}
