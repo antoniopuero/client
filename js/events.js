@@ -1,5 +1,7 @@
-Events = {
 
+Events = {
+	build : new Builder(),
+	connect: new Connection(),
 	clickedRows: [],
 	onCloseModal: function (dialog) {
 		Events.clickedRows = [];
@@ -17,14 +19,15 @@ Events = {
 			cR.push(e.data);
 			console.log(cR);
 			console.log('if');
-			var jsonData = (new Connection()).getJobs(parseInt(e.data, 10));
+			var jsonData = Events.connect.getJobs(parseInt(e.data, 10));
 			e.preventDefault();
-			c.append((new Builder()).buildTable(jsonData));
+			c.append(Events.build.buildTable(jsonData));
 		} else {
 			console.log('else');
-			var jsonData = (new Connection()).getJobs(parseInt(e.data, 10));
+			var jsonData = Events.connect.getJobs();
 			e.preventDefault();
-			c.empty().append((new Builder()).buildTable(jsonData));
+			c.empty();
+			Events.build.buildTable(jsonData, c);
 		}
 		c.modal({onClose: Events.onCloseModal});
 	}

@@ -90,24 +90,33 @@
 			})
 
 		},
-		buildTable: function(jobsObject){
-			var table = $('<table id="table"></table>'),
+		buildTable: function(jobsObject, container){
+			var table,
 				tr = $('<tr></tr>'),
 				columnsConfig = [
 					{ 'mData': 'name' },
 					{ 'mData': 'type' },
 					{ 'mData': 'status' }
 				];
+			if(container!==undefined){
+				table = $('<table id="table"></table>');
+			} else {
+				table = $('<table id="new_one"></table>');
+			}
 			tr.append($('<th>Name</th><th>Type</th><th>Status</th>'));
 			for(var key in jobsObject[0].parameters){
 				tr.append($('<th>'+key+'</th>'));
 				columnsConfig.push({ 'mData': 'parameters.'+key });
 			}
 			table.append($('<thead></thead>').append(tr)).append($('<tbody></tbody>'));
+			if(container!==undefined){
+				container.append(table);
+				table = container.find(table);
+			}
 			table.dataTable( {
 				"bProcessing": true,
 				"aaData": jobsObject,
-				"aoColumns": columnsConfig,
+				"aoColumns": columnsConfig, 
 				"fnRowCallback": function(row, data){
 					$(row).attr('id', data.id);
 					return row;

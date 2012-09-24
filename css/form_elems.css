@@ -41,6 +41,9 @@ form p{
 #table_container{
 	display: none;
 }
+#simplemodal-container {
+    min-width: 70%;
+}
 #simplemodal-container a.modalCloseImg {
 	background:url(../images/x.png) no-repeat; /* adjust url as required */
 	width:25px;
