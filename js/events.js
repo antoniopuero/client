@@ -10,6 +10,7 @@ Events = {
 	tableJobSet: function(e){
 		var c = $('#table_container'),
 			cR = Events.clickedRows;
+		e.preventDefault();
 		if(e.data!==null){
 			for(var i = 0, max = cR.length; i< max; i++){
 				if(cR[i] == e.data){
@@ -17,15 +18,10 @@ Events = {
 				}
 			}
 			cR.push(e.data);
-			console.log(cR);
-			console.log('if');
 			var jsonData = Events.connect.getJobs(parseInt(e.data, 10));
-			e.preventDefault();
 			c.append(Events.build.buildTable(jsonData));
 		} else {
-			console.log('else');
 			var jsonData = Events.connect.getJobs();
-			e.preventDefault();
 			c.empty();
 			Events.build.buildTable(jsonData, c);
 		}

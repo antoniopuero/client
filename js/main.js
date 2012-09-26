@@ -9,4 +9,14 @@ $(document).ready(function(){
 
 	$('#clk2').click(Events.tableJobSet);
 
+	var serverEvent = new EventSource('test.php');
+	serverEvent.addEventListener('message', function(e) {
+  		console.log(e.data);
+  		var wind = $('<div id="statusbar"></div>');
+  		wind.append('Current status of the work: '+e.data);
+  		$('body').append(wind);
+  		wind = $('body').find(wind);
+  		wind.fadeIn(200);
+  		wind.fadeOut(2800);
+	}, false);
 });

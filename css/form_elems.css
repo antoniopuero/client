@@ -1,3 +1,8 @@
+body{
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
 #form_container label
 {
 width: 4em;
@@ -7,7 +12,7 @@ margin-right: 0.5em;
 display: block
 }
 
-input
+#form_container input
 {
 color: #781351;
 background: #fee3ad;
@@ -15,13 +20,13 @@ border: 1px solid #781351
 }
 
 
-fieldset
+#form_container fieldset
 {
 border: 1px solid #781351;
 //width: 20em
 }
 
-legend
+#form_container legend
 {
 color: #fff;
 background: #ffa20c;
@@ -31,7 +36,7 @@ padding: 2px 6px
 .set:hover{
 	cursor: pointer;
 }
-form p{
+#form_container  p{
 	font-weight: bold;
 }
 #form_container{
@@ -40,6 +45,15 @@ form p{
 
 #table_container{
 	display: none;
+}
+#statusbar{
+    width: 30%;
+    height: 7%;
+    display: none;
+    position: absolute;
+    top: 93%;
+    left: 70%;
+    background: rgba(150,150,150,0.5);
 }
 #simplemodal-container {
     min-width: 70%;
