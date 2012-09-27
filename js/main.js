@@ -16,7 +16,13 @@ $(document).ready(function(){
   		wind.append('Current status of the work: '+e.data);
   		$('body').append(wind);
   		wind = $('body').find(wind);
-  		wind.fadeIn(200);
-  		wind.fadeOut(2800);
+  		wind.show();
+  		wind.animate({
+  			top: '93%',
+  			height: '7%'
+  		}, 400);
+  		setTimeout(function(){
+  			wind.hide();
+  		},2000);
 	}, false);
 });
