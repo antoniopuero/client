@@ -2,6 +2,13 @@ body{
     margin: 0;
     padding: 0;
     position: relative;
+    width: 100%;
+    min-height: 100%;
+}
+#tree{
+    width: 20%;
+    position: relative;
+    float: left;
 }
 #form_container label
 {
@@ -47,6 +54,8 @@ padding: 2px 6px
 	display: none;
 }
 #statusbar{
+    position: relative;
+    clear: both;
     width: 30%;
     height: 0;
     display: none;

@@ -29,7 +29,7 @@ Connection.prototype = {
 			tab2: {
 				tabName: 'other',
 				c: 'bool',
-				d: 'blob',
+				d: 'blob'
 			},
 			tab3:{
 				tabName: 'lists',
@@ -59,7 +59,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -69,7 +69,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -79,7 +79,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -89,7 +89,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -99,7 +99,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -109,7 +109,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -119,7 +119,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -129,7 +129,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -139,7 +139,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -149,7 +149,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -159,7 +159,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -169,7 +169,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'in process'
 			},
@@ -179,7 +179,7 @@ Connection.prototype = {
 				parameters:{
 					key1: 15,
 					key2: 28.25,
-					key3: 'sonestr',
+					key3: 'sonestr'
 				},
 				status: 'in process'
 			},
@@ -194,7 +194,7 @@ Connection.prototype = {
 						parameters:{
 							key1: 'value1',
 							key2: 'value2',
-							key3: 'value3',
+							key3: 'value3'
 						},
 					status: 'done'
 					},
@@ -204,7 +204,7 @@ Connection.prototype = {
 						parameters:{
 							key1: 'value1',
 							key2: 'value2',
-							key3: 'value3',
+							key3: 'value3'
 						},
 					status: 'in process'
 					},
@@ -212,19 +212,38 @@ Connection.prototype = {
 				parameters:{
 					key1: 'value1',
 					key2: 'value2',
-					key3: 'value3',
+					key3: 'value3'
 				},
 				status: 'done'
 			}
 		];
+		if (!window.JSON) {
+			window.JSON = {
+				parse: function (sJSON) { return eval("(" + sJSON + ")"); },
+				stringify: function (vContent) {
+					if (vContent instanceof Object) {
+						var sOutput = "";
+						if (vContent.constructor === Array) {
+							for (var nId = 0; nId < vContent.length; sOutput += this.stringify(vContent[nId]) + ",", nId++);
+							return "[" + sOutput.substr(0, sOutput.length - 1) + "]";
+						}
+						if (vContent.toString !== Object.prototype.toString) { return "\"" + vContent.toString().replace(/"/g, "\\$&") + "\""; }
+							for (var sProp in vContent) { sOutput += "\"" + sProp.replace(/"/g, "\\$&") + "\":" + this.stringify(vContent[sProp]) + ",";
+						}
+							return "{" + sOutput.substr(0, sOutput.length - 1) + "}";
+					}
+					return typeof vContent === "string" ? "\"" + vContent.replace(/"/g, "\\$&") + "\"" : String(vContent);
+				}
+			};
+		}
 		var jsonStr = JSON.stringify(jobs);
 		if(this.isLocalStorageAvailable()){
 			localStorage.setItem('jobs', jsonStr);
 			this.getJobs = function(){
-				console.log('new getJobs');
+				// console.log('new getJobs');
 				return JSON.parse(localStorage.getItem('jobs'));
 			}
 			return jobs;
 		}
-	},
+	}
 }

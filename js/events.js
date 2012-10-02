@@ -26,6 +26,10 @@ Events = {
 			Events.build.buildTable(jsonData, c);
 		}
 		c.modal({onClose: Events.onCloseModal});
+	},
+	treeExample: function(){
+		var tree = $('#tree');
+		this.build.buildTree(this.connect.getJobs(), tree);
 	}
 }
 /*-------------------------------Handlers--------------------------------*/
@@ -39,9 +43,7 @@ $(document).ready(function(){
 		    'CTRL': 17,
 		    'ALT': 18,
 		    'LEFT': 37,
-		    'RIGHT': 39,
-		    //'INSERT': 45,
-		    //'DELETE': 46
+		    'RIGHT': 39
 		};
 	$('#form_container').delegate('.int','keypress', function(e){
 		keyFlag = true;
@@ -90,7 +92,8 @@ $(document).ready(function(){
 	})
 	$('#form_container').delegate('#send','click', function(e){
 		e.preventDefault();
-		console.log(Events.build.getJSON($('#new_project')));
+		// console.log(Events.build.getJSON($('#new_project')));
 		$('.modalCloseImg').trigger('click');
 	})
+	Events.treeExample();
 })

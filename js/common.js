@@ -3,11 +3,11 @@
 	}
 	Builder.prototype = {
 	 	firstLetter: function(word){
-			"use strict";
+			//"use strict";
 			return word.substr(0,1).toUpperCase() + word.substr(1);
 		},
 		buildForm: function(projectСonfig, container){
-			"use strict";
+			//"use strict";
 			if(!container){
 				var fragment = $('<form id ="new_project" name="data" method="post"></form>'),
 					tabsMenu = $('<div id="tabs"></div>'),
@@ -26,7 +26,7 @@
 					tabsMenu.find('.panes').append($('<div id = "tabs-'+count+'"></div>'));
 					this.buildForm(projectСonfig[prop], tabsMenu.find('#tabs-'+count));
 					count+=1;
-					console.log(tabsMenu);
+					//console.log(tabsMenu);
 					self.append(tabsMenu);
 				}
 				else if((projectСonfig[prop] === 'int')||(projectСonfig[prop] === 'float')||(projectСonfig[prop] === 'string')){
@@ -69,16 +69,16 @@
 			}
 		},
 		getJSON: function(formObject){//доработать надо все четко продумать
-			"use strict";
+			//"use strict";
 			var json = {};
 			$.each(formObject.get(0).elements, function(key,elem){
 				json[elem.name] = elem.value;
-				console.log(elem);
+				//console.log(elem);
 			});
 			return JSON.stringify(json);
 		},
 		addEventToSetRow: function(table){
-			"use strict";
+			//"use strict";
 			var rows = $('tr', table),
 				self = this,
 				cells;
@@ -96,7 +96,7 @@
 
 		},
 		buildTable: function(jobsObject, container){
-			"use strict";
+			//"use strict";
 			var table,
 				self = this,
 				tr = $('<tr></tr>'),
@@ -132,7 +132,37 @@
 					self.addEventToSetRow(table);
 				}
 			} );
-			//this.addEventToSetRow(table);
 		return table;
+		},
+		prepareForTree: function(jobsObject){
+			var treeObject = [],
+			treeElement = {};
+			for (var i = 0, max = jobsObject.length; i < max; i+=1){
+				treeElement = {};
+				treeElement.data = {};
+				treeElement.data['title'] = jobsObject[i].name;
+				treeElement.data['attr'] = {id:jobsObject[i].id};
+				if(jobsObject[i].type === 'set'){
+					treeElement.data['icon'] = 'folder';
+				} else {
+					treeElement.data['icon'] = '/';
+				}
+				treeObject[i] = treeElement;
+			}
+			// console.log(treeObject);
+			return treeObject;
+		},
+		buildTree: function(jobsObject, container){
+			var treeObject = this.prepareForTree(jobsObject);
+			container.jstree({
+				json_data: {
+					data: treeObject
+				},
+				plugins: ['themes', 'json_data', 'ui'],
+				themes: {
+					theme: 'apple',
+					url: 'css/jquery.tree.css'
+				} 
+			});
 		}
 	}
