@@ -5,10 +5,28 @@ body{
     width: 100%;
     min-height: 100%;
 }
-#tree{
+#tree_container{
+    min-height: 100%;
     width: 20%;
     position: relative;
     float: left;
+    background: rgba(68,122,236, 0.5);
+    border: 1px solid black;
+    border-radius: 15px;
+}
+#tree_container p{
+    position: relative;
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+    font-variant: small-caps;
+}
+#tree{
+}
+#container{
+    position: relative;
+    width: 80%;
+    min-height: 100%;
 }
 #form_container label
 {
@@ -65,7 +83,7 @@ padding: 2px 6px
     background: rgba(150,150,150,0.5);
 }
 #simplemodal-container {
-    min-width: 70%;
+    min-width: 40%;
 }
 #simplemodal-container a.modalCloseImg {
 	background:url(../images/x.png) no-repeat; /* adjust url as required */

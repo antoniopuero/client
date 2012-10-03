@@ -41,21 +41,21 @@
 					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><textarea name="'+prop+'" class="blob" cols="30" rows="15">');
 					self.append(element);
 				}
-				else if(projectСonfig[prop].type === 'list.check')	{
+				else if(projectСonfig[prop].type === 'list_check')	{
 					element =  $('<fieldset></fieldset>');
 					element.append($('<legend>'+this.firstLetter(prop.toString())+'</legend>'));
 					var i = 0;
 					while(projectСonfig[prop][i]!==undefined){
-						element.append($('<p><input type="checkbox" name="'+projectСonfig[prop][i]+'" class="list.checks">'+projectСonfig[prop][i]+'</p>'));
+						element.append($('<p><input type="checkbox" name="'+projectСonfig[prop][i]+'" class="list_checks">'+projectСonfig[prop][i]+'</p>'));
 						i+=1;
 					}
 					self.append(element);
 				}
-				else if(projectСonfig[prop].type === 'list.option')	{
+				else if(projectСonfig[prop].type === 'list_option')	{
 					element =  $('<select></select>');
 					var i = 0;
 					while(projectСonfig[prop][i]!==undefined){
-						element.append($('<option value="'+projectСonfig[prop][i]+'" class="list.option">'+projectСonfig[prop][i]+'</option>'));
+						element.append($('<option value="'+projectСonfig[prop][i]+'" class="list_option">'+projectСonfig[prop][i]+'</option>'));
 						i+=1;
 					}
 					self.append('<p>'+this.firstLetter(prop.toString())+'</p>').append(element);
@@ -72,8 +72,21 @@
 			//"use strict";
 			var json = {};
 			$.each(formObject.get(0).elements, function(key,elem){
-				json[elem.name] = elem.value;
-				//console.log(elem);
+				elem=$(elem);
+				if(elem.attr('type') === 'checkbox'){
+
+				}
+				else if((elem.attr('type') === 'radio')&&(elem.attr('checked') === 'checked')){
+					if(elem.hasClass('bool.true')){
+						console.log('jopa');
+						json[elem.attr('name')] = true;
+					} else {
+						json[elem.attr('name')] = false;
+					}
+				}
+				else{
+				json[elem.attr('name')] = elem.val();
+				}
 			});
 			return JSON.stringify(json);
 		},

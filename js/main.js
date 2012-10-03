@@ -23,7 +23,7 @@ $(document).ready(function(){
   		}, 400);
   		setTimeout(function(){
   			wind.hide();
-  			$('body').remove('#statusbar');
+  			wind.detach();
   		},2000);
 	}, false);
 

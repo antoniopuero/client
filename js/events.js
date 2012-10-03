@@ -92,7 +92,7 @@ $(document).ready(function(){
 	})
 	$('#form_container').delegate('#send','click', function(e){
 		e.preventDefault();
-		// console.log(Events.build.getJSON($('#new_project')));
+		console.log(Events.build.getJSON($('#new_project')));
 		$('.modalCloseImg').trigger('click');
 	})
 	Events.treeExample();

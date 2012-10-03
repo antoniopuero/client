@@ -34,13 +34,13 @@ Connection.prototype = {
 			tab3:{
 				tabName: 'lists',
 				e: {
-				type: 'list.check',
+				type: 'list_check',
 				0: 'el1',
 				1: 'el2',
 				2: 'el3'
 			},
 			f: {
-				type: 'list.option',
+				type: 'list_option',
 				0: 'el1',
 				1: 'el2',
 				2: 'el3'
@@ -48,7 +48,7 @@ Connection.prototype = {
 		}
 		};
 	},
-	getJobs: function(){
+	getJobs: function(id){
 		/*получает также аяксом джейсон-строчку сразу валим ее
 		в локалСторадж и больше не лазаем на сервер, тоесть если
 		есть лС то переписуем эту ф-цию чтобы она лазала в локалстор*/
@@ -187,7 +187,12 @@ Connection.prototype = {
 				id: 3,
 				name: 'job2',
 				type: 'set',
-				jobs:[
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				subjobs: [
 					{
 						name: 'job2.1',
 						type: 1,
@@ -207,13 +212,8 @@ Connection.prototype = {
 							key3: 'value3'
 						},
 					status: 'in process'
-					},
+					}
 				],
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
 				status: 'done'
 			}
 		];
@@ -235,7 +235,10 @@ Connection.prototype = {
 					return typeof vContent === "string" ? "\"" + vContent.replace(/"/g, "\\$&") + "\"" : String(vContent);
 				}
 			};
-		}
+		 }
+		// if(id !== undefined){
+			
+		// }
 		var jsonStr = JSON.stringify(jobs);
 		if(this.isLocalStorageAvailable()){
 			localStorage.setItem('jobs', jsonStr);
@@ -245,5 +248,6 @@ Connection.prototype = {
 			}
 			return jobs;
 		}
+		return jobs;
 	}
 }
