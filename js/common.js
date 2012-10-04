@@ -68,7 +68,7 @@
 				return self;
 			}
 		},
-		getJSON: function(formObject){//доработать надо все четко продумать
+		getJSON: function(formObject){
 			//"use strict";
 			var json = {};
 			$.each(formObject.get(0).elements, function(key,elem){
@@ -145,6 +145,7 @@
 					self.addEventToSetRow(table);
 				}
 			} );
+		console.log('fdsfsdfkjh');
 		return table;
 		},
 		prepareForTree: function(jobsObject){

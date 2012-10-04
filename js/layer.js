@@ -16,11 +16,7 @@ Connection.prototype = {
 	    }
 	},
 	getNewJob: function(){
-		/* заглушка га самом деле, будет здесь аякс-запрос,
-		получение джейсон-строчки,
-		парсинг обьекта,
-		и уж потом возврат обьект*/
-		return {
+	return {
 			tab1:{
 				tabName: 'digits',
 				b: 'float',	
@@ -49,9 +45,7 @@ Connection.prototype = {
 		};
 	},
 	getJobs: function(id){
-		/*получает также аяксом джейсон-строчку сразу валим ее
-		в локалСторадж и больше не лазаем на сервер, тоесть если
-		есть лС то переписуем эту ф-цию чтобы она лазала в локалстор*/
+
 		var jobs = [
 			{	id: 1,
 				name: 'job1',
@@ -249,5 +243,10 @@ Connection.prototype = {
 			return jobs;
 		}
 		return jobs;
+	},
+	getJobsLite: function(){
+	var liteJobs = [
+	
+	];
 	}
 }
