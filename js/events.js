@@ -29,7 +29,7 @@ Events = {
 	},
 	treeExample: function(){
 		var tree = $('#tree');
-		this.build.buildTree(this.connect.getJobs(), tree);
+		this.build.buildTree(this.connect.getJobsLite(), tree);
 	}
 }
 /*-------------------------------Handlers--------------------------------*/

@@ -154,23 +154,28 @@
 			for (var i = 0, max = jobsObject.length; i < max; i+=1){
 				treeElement = {};
 				treeElement.data = {};
-				treeElement.data['title'] = jobsObject[i].name;
-				treeElement.data['attr'] = {id:jobsObject[i].id};
-				if(jobsObject[i].type === 'set'){
+				if((jobsObject[i].type === 'set')||(jobsObject[i].type === 'workflow')){
+					treeElement.data['title'] = jobsObject[i].name;
+					treeElement.data['attr'] = {id:jobsObject[i].id};
 					treeElement.data['icon'] = 'folder';
-				} else {
-					treeElement.data['icon'] = '/';
+					if(jobsObject[i].subjobs !== undefined){
+						treeElement.children = [];
+						for(var j = 0, childMax = jobsObject[i].subjobs.length; j<childMax; j++){
+							treeElement.children.push({data: jobsObject[i].subjobs[j].name});
+						}
+					}
+					treeObject.push(treeElement);
 				}
-				treeObject[i] = treeElement;
 			}
-			// console.log(treeObject);
+			console.log(treeObject);
 			return treeObject;
 		},
-		buildTree: function(jobsObject, container){
-			var treeObject = this.prepareForTree(jobsObject);
+		buildTree: function(liteJobsObject, container){
+			var treeObject = this.prepareForTree(liteJobsObject);
 			container.jstree({
 				json_data: {
-					data: treeObject
+					data: treeObject,	
+					progressive_render: true,
 				},
 				plugins: ['themes', 'json_data', 'ui'],
 				themes: {

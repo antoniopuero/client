@@ -246,7 +246,45 @@ Connection.prototype = {
 	},
 	getJobsLite: function(){
 	var liteJobs = [
-	
+		{	
+			id: 2,
+			name: 'jobset',
+			type: 'set',
+			subjobs: [
+				{
+					name: 'subjob1',
+					type: 1
+				},
+				{
+					name: 'subjob2',
+					type: 1
+				},
+				{
+					name: 'subjob3',
+					type: 1
+				}
+			]
+		},
+		{
+			id: 3,
+			name: 'workflow',
+			type: 'workflow',
+			subjobs: [
+				{
+					name: 'subjob1',
+					type: 1
+				},
+				{
+					name: 'subjob2',
+					type: 1
+				},
+				{
+					name: 'subjob3',
+					type: 1
+				}
+			]
+		}
 	];
+	return liteJobs;
 	}
 }
