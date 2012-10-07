@@ -29,7 +29,9 @@ body{
     background: #c3c3c3;
 }
 #tree{
-    padding: 2px 0 0 3px;}
+    padding: 2px 0 0 3px;
+    height: 100%;
+}
 #container{
     float:left;
     position: relative;

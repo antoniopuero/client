@@ -6,7 +6,7 @@
 			//"use strict";
 			return word.substr(0,1).toUpperCase() + word.substr(1);
 		},
-		buildForm: function(projectСonfig, container){
+		buildForm: function(projectConfig, container){
 			//"use strict";
 			if(!container){
 				var fragment = $('<form id ="new_project" name="data" method="post"></form>'),
@@ -17,45 +17,45 @@
 			} else {
 				self = container;
 			}
-			for(var prop in projectСonfig){
-				if((typeof projectСonfig[prop] === 'object')&&(projectСonfig[prop]['tabName'])){
+			for(var prop in projectConfig){
+				if((typeof projectConfig[prop] === 'object')&&(projectConfig[prop]['tabName'])){
 					if(count === 1){
 						tabsMenu.append($('<ul class = "tabs"></ul><div class="panes"></div>'));
 					}
-					tabsMenu.find('.tabs').append($('<li><a href="#tabs-'+count+'">'+projectСonfig[prop]['tabName']+'</a></li>'));
+					tabsMenu.find('.tabs').append($('<li><a href="#tabs-'+count+'">'+projectConfig[prop]['tabName']+'</a></li>'));
 					tabsMenu.find('.panes').append($('<div id = "tabs-'+count+'"></div>'));
-					this.buildForm(projectСonfig[prop], tabsMenu.find('#tabs-'+count));
+					this.buildForm(projectConfig[prop], tabsMenu.find('#tabs-'+count));
 					count+=1;
 					//console.log(tabsMenu);
 					self.append(tabsMenu);
 				}
-				else if((projectСonfig[prop] === 'int')||(projectСonfig[prop] === 'float')||(projectСonfig[prop] === 'string')){
-					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><input type="text" name="'+prop+'" class="'+projectСonfig[prop]+'" size="40">');
+				else if((projectConfig[prop] === 'int')||(projectConfig[prop] === 'float')||(projectConfig[prop] === 'string')){
+					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><input type="text" name="'+prop+'" class="'+projectConfig[prop]+'" size="40">');
 					self.append(element); 
 				}
-				else if(projectСonfig[prop] === 'bool')	{
+				else if(projectConfig[prop] === 'bool')	{
 					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><span>True:</span><input type="radio" name="'+prop+'" class="bool.true"><span>False:</span><input type="radio" name="'+prop+'" class="bool.false">');
 					self.append(element);
 				}
-				else if(projectСonfig[prop] === 'blob')	{
+				else if(projectConfig[prop] === 'blob')	{
 					element =  $('<p>'+this.firstLetter(prop.toString())+'</p><textarea name="'+prop+'" class="blob" cols="30" rows="15">');
 					self.append(element);
 				}
-				else if(projectСonfig[prop].type === 'list_check')	{
+				else if(projectConfig[prop].type === 'list_check')	{
 					element =  $('<fieldset></fieldset>');
 					element.append($('<legend>'+this.firstLetter(prop.toString())+'</legend>'));
 					var i = 0;
-					while(projectСonfig[prop][i]!==undefined){
-						element.append($('<p><input type="checkbox" name="'+projectСonfig[prop][i]+'" class="list_checks">'+projectСonfig[prop][i]+'</p>'));
+					while(projectConfig[prop][i]!==undefined){
+						element.append($('<p><input type="checkbox" name="'+projectConfig[prop][i]+'" class="list_checks">'+projectConfig[prop][i]+'</p>'));
 						i+=1;
 					}
 					self.append(element);
 				}
-				else if(projectСonfig[prop].type === 'list_option')	{
+				else if(projectConfig[prop].type === 'list_option')	{
 					element =  $('<select></select>');
 					var i = 0;
-					while(projectСonfig[prop][i]!==undefined){
-						element.append($('<option value="'+projectСonfig[prop][i]+'" class="list_option">'+projectСonfig[prop][i]+'</option>'));
+					while(projectConfig[prop][i]!==undefined){
+						element.append($('<option value="'+projectConfig[prop][i]+'" class="list_option">'+projectConfig[prop][i]+'</option>'));
 						i+=1;
 					}
 					self.append('<p>'+this.firstLetter(prop.toString())+'</p>').append(element);
