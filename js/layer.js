@@ -252,15 +252,15 @@ Connection.prototype = {
 			type: 'set',
 			subjobs: [
 				{
-					name: 'subjob1',
+					name: 'sub1',
 					type: 1
 				},
 				{
-					name: 'subjob2',
+					name: 'sub2',
 					type: 1
 				},
 				{
-					name: 'subjob3',
+					name: 'sub3',
 					type: 1
 				}
 			]

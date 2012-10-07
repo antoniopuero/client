@@ -145,7 +145,6 @@
 					self.addEventToSetRow(table);
 				}
 			} );
-		console.log('fdsfsdfkjh');
 		return table;
 		},
 		prepareForTree: function(jobsObject){
@@ -153,15 +152,13 @@
 			treeElement = {};
 			for (var i = 0, max = jobsObject.length; i < max; i+=1){
 				treeElement = {};
-				treeElement.data = {};
 				if((jobsObject[i].type === 'set')||(jobsObject[i].type === 'workflow')){
-					treeElement.data['title'] = jobsObject[i].name;
-					treeElement.data['attr'] = {id:jobsObject[i].id};
-					treeElement.data['icon'] = 'folder';
+					treeElement['label'] = jobsObject[i].name;
+					treeElement['id'] = jobsObject[i].id;
 					if(jobsObject[i].subjobs !== undefined){
 						treeElement.children = [];
 						for(var j = 0, childMax = jobsObject[i].subjobs.length; j<childMax; j++){
-							treeElement.children.push({data: jobsObject[i].subjobs[j].name});
+							treeElement.children.push({label: jobsObject[i].subjobs[j].name});
 						}
 					}
 					treeObject.push(treeElement);
@@ -172,16 +169,11 @@
 		},
 		buildTree: function(liteJobsObject, container){
 			var treeObject = this.prepareForTree(liteJobsObject);
-			container.jstree({
-				json_data: {
-					data: treeObject,	
-					progressive_render: true,
-				},
-				plugins: ['themes', 'json_data', 'ui'],
-				themes: {
-					theme: 'apple',
-					url: 'css/jquery.tree.css'
-				} 
-			});
+			container.tree({
+					data: treeObject,
+					autoOpen: true,
+					//selectable: true,
+					dragAndDrop: true
+				}); 
 		}
 	}

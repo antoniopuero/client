@@ -11,7 +11,6 @@ $(document).ready(function(){
 
 	var serverEvent = new EventSource('test.php');
 	serverEvent.addEventListener('message', function(e) {
-  		//console.log(e.data);
   		var wind = $('<div id="statusbar"></div>');
   		wind.append('Current status of the work: '+e.data);
   		$('body').append(wind);
