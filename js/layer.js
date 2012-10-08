@@ -237,14 +237,13 @@ Connection.prototype = {
 		if(this.isLocalStorageAvailable()){
 			localStorage.setItem('jobs', jsonStr);
 			this.getJobs = function(){
-				// console.log('new getJobs');
 				return JSON.parse(localStorage.getItem('jobs'));
 			}
 			return jobs;
 		}
 		return jobs;
 	},
-	getJobsLite: function(){
+	getJobsTree: function(){
 	var liteJobs = [
 		{	
 			id: 2,
@@ -252,15 +251,15 @@ Connection.prototype = {
 			type: 'set',
 			subjobs: [
 				{
-					name: 'sub1',
+					name: 'subjob1',
 					type: 1
 				},
 				{
-					name: 'sub2',
+					name: 'subjob2',
 					type: 1
 				},
 				{
-					name: 'sub3',
+					name: 'subjob3',
 					type: 1
 				}
 			]
