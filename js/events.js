@@ -1,4 +1,4 @@
-
+/** @namespace */
 Events = {
 	build : new Builder({
 		formC: $('#form_container'),
@@ -7,34 +7,52 @@ Events = {
 	}),
 	connect: new Connection(),
 	clickedRows: [],
+	/**onCloseModal calls when modal window is about to close.
+	*@method onCloseModal
+	* @param {eventObject} dialog Contains all needed information.
+	*/
 	onCloseModal: function (dialog) {
 		Events.clickedRows = [];
-		$(dialog.container[0]).empty();
-		$.modal.close(); 
+		dialog.container.empty();
+		$.modal.close();
 	},
+	/**tableJobSet calls when we're about to create table of jobs.
+	*@method tableJobSet
+	*@param {eventObject} e Contains all needed information.
+	*@param {number|string} id Indentifier of some job[set].
+	*/
 	tableJobSet: function(e, id){
 		var self = Events,
 			tableC = $('#table_container'),
+			jsonData,
 			cR = self.clickedRows;
 		e.preventDefault();
-		console.log(e, id);
 		id = e.data||id;
-		if((e.data!==null)||(e.data!==undefined)){
+		console.log(id);
+		if((id!==null)&&(id!==undefined)){
+			console.log('if');
 			for(var i = 0, max = cR.length; i< max; i++){
 				if(cR[i] == id){
 					return false;
+				} else {
+
 				}
 			}
-			cR.push(e.data);
-			var jsonData = self.connect.getJobs(parseInt(id, 10));
+			cR.push(id);
+			jsonData = self.connect.getJobs(parseInt(id, 10));
 			tableC.append(self.build.buildTable(jsonData));
 		} else {
-			var jsonData = self.connect.getJobs();
+			console.log('else');
+			jsonData = self.connect.getJobs();
 			self.build.buildTable(jsonData, tableC);
 		}
 		tableC.modal({onClose: self.onCloseModal});
 	},
-	treeExample: function(tree){
+	/**treeSet calls when we're about to create tree of jobs.
+	*@method treeSet
+	*@param {DOM Object} tree DOM Object fetched by jQuery.
+	*/
+	treeSet: function(tree){
 		var self = this;
 		tree = self.build.buildTree(self.connect.getJobsTree(), tree);
 		tree.bind('select_node.jstree', function(event, data){
@@ -105,5 +123,5 @@ $(document).ready(function(){
 		console.log(Events.build.getJSON($('#new_project')));
 		$('.modalCloseImg').trigger('click');
 	});
-	Events.treeExample($('#tree'));
+	Events.treeSet($('#tree'));
 });

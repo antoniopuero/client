@@ -1,13 +1,23 @@
+/**@constructor*/
 function Connection(config){
 
 }
 Connection.prototype = {
+	/**
+	*Function send is using for send response to the server and get the starting information.
+	*@method send
+	*/
 	send: function(){
 		//do something
 		var data = this.getNewJob();
 		//do something with data
 		return data;
 	},
+	/**
+	*isLocalStorageAvailable checks the localStorage in client browser.
+	*@method isLocalStorageAvailable
+	*@returns {Boolean} available.
+	*/
 	isLocalStorageAvailable: function() {
 	    try {
 	        return 'localStorage' in window && window['localStorage'] !== null;
@@ -15,6 +25,11 @@ Connection.prototype = {
 	        return false;
 	    }
 	},
+	/**
+	*getNewJob get information from server for building jobs table by Builder.buildTable.
+	*@method getNewJob
+	*@returns {Object} configDataObject.
+	*/
 	getNewJob: function(){
 	return {
 			tab1:{
@@ -44,6 +59,12 @@ Connection.prototype = {
 		}
 		};
 	},
+	/**
+	*getJobs gets jobs list and all information about them.
+	*@method getJobs
+	*@param {undefined|number|string} id for using secondary building of jobsets and other.
+	*@returns {Object} jobs.
+	*/
 	getJobs: function(id){
 
 		var jobs = [
@@ -243,6 +264,11 @@ Connection.prototype = {
 		}
 		return jobs;
 	},
+	/**
+	*getJobsTree gets the lightest version of jobs lists with complex information for building a tree by the Buider.buildTree.
+	*@method getJobsTree
+	*@returns {Object} liteJobs.
+	*/
 	getJobsTree: function(){
 	var liteJobs = [
 		{	
