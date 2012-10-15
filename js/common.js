@@ -1,81 +1,75 @@
 /**
 *@constructor
 */
-function Builder (config) {
+function Builder(config) {
 	this.formC = config.formC;
 	this.tableC = config.tableC;
 	this.treeC = config.treeC;
 }
 Builder.prototype = {
- 	firstLetter: function(word){
+	firstLetter: function (word) {
 		//"use strict";
-		return word.substr(0,1).toUpperCase() + word.substr(1);
+		return word.substr(0, 1).toUpperCase() + word.substr(1);
 	},
 	/**
 	*buildForm a simple form, which helps user to init new job.
 	*@method buildForm
-	*@param {Object} projectConfig all data with types from server, which user need to init new job.
+	*@param {Object} config all data with types from server, which user need to init new job.
 	*@param {undefined|DOM Object} container Optional argument for recursive calling of builForm for different types and tabs of data.
 	*@returns {DOM Object} form Builded form 
 	*/
-	buildForm: function(projectСonfig, container){
+	buildForm: function (config, container) {
 		//"use strict";
-		if(!container){
-			var fragment = $('<form id ="new_project" name="data" method="post"></form>'),
-				tabsMenu = $('<div id="tabs"></div>'),
-				count = 1
-				i = 0,
-				element,
-				self = fragment;
-		} else {
+		var fragment = $('<form id ="new_project" name="data" method="post"></form>'),
+			tabsMenu = $('<div id="tabs"></div>'),
+			count = 1,
+			i = 0,
+			element,
+			prop,
+			self = fragment;
+		if (container) {
 			self = container;
 		}
-		for(var prop in projectСonfig){
-			if((typeof projectСonfig[prop] === 'object')&&(projectСonfig[prop]['tabName'])){
-				if(count === 1){
+		for (prop in config) {
+			if ((typeof config[prop] === 'object') && (config[prop].tabName)) {
+				if (count === 1) {
 					tabsMenu.append($('<ul class = "tabs"></ul><div class="panes"></div>'));
 				}
-				tabsMenu.find('.tabs').append($('<li><a href="#tabs-'+count+'">'+projectСonfig[prop]['tabName']+'</a></li>'));
-				tabsMenu.find('.panes').append($('<div id = "tabs-'+count+'"></div>'));
-				this.buildForm(projectСonfig[prop], tabsMenu.find('#tabs-'+count));
-				count+=1;
+				tabsMenu.find('.tabs').append($('<li><a href="#tabs-' + count + '">' + config[prop].tabName + '</a></li>'));
+				tabsMenu.find('.panes').append($('<div id = "tabs-' + count + '"></div>'));
+				this.buildForm(config[prop], tabsMenu.find('#tabs-' + count));
+				count += 1;
 				self.append(tabsMenu);
-			}
-			else if((projectСonfig[prop] === 'int')||(projectСonfig[prop] === 'float')||(projectСonfig[prop] === 'string')){
-				element =  $('<p>'+this.firstLetter(prop.toString())+'</p><input type="text" name="'+prop+'" class="'+projectСonfig[prop]+'" size="40">');
-				self.append(element); 
-			}
-			else if(projectСonfig[prop] === 'bool')	{
-				element =  $('<p>'+this.firstLetter(prop.toString())+'</p><span>True:</span><input type="radio" name="'+prop+'" class="bool.true"><span>False:</span><input type="radio" name="'+prop+'" class="bool.false">');
+			} else if ((config[prop] === 'int') || (config[prop] === 'float') || (config[prop] === 'string')) {
+				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + '" size="40">');
 				self.append(element);
-			}
-			else if(projectСonfig[prop] === 'blob')	{
-				element =  $('<p>'+this.firstLetter(prop.toString())+'</p><textarea name="'+prop+'" class="blob" cols="30" rows="15">');
+			} else if (config[prop] === 'bool') {
+				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><span>True:</span><input type="radio" name="' + prop + '" class="bool.true"><span>False:</span><input type="radio" name="' + prop + '" class="bool.false">');
 				self.append(element);
-			}
-			else if(projectСonfig[prop].type === 'list_check')	{
+			} else if (config[prop] === 'blob') {
+				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob" cols="30" rows="15">');
+				self.append(element);
+			} else if (config[prop].type === 'list_check') {
 				element =  $('<fieldset></fieldset>');
-				element.append($('<legend>'+this.firstLetter(prop.toString())+'</legend>'));
+				element.append($('<legend>' + this.firstLetter(prop.toString()) + '</legend>'));
 				i = 0;
-				while(projectСonfig[prop][i]!==undefined){
-					element.append($('<p><input type="checkbox" name="'+projectСonfig[prop][i]+'" class="list_checks">'+projectСonfig[prop][i]+'</p>'));
-					i+=1;
+				while (config[prop][i] !== undefined) {
+					element.append($('<p><input type="checkbox" name="' + config[prop][i] + '" class="list_checks">' + config[prop][i] + '</p>'));
+					i += 1;
 				}
 				self.append(element);
-			}
-			else if(projectСonfig[prop].type === 'list_option')	{
-				element =  $('<select></select>');
+			} else if (config[prop].type === 'list_option') {
+				element =  $('<select multiple></select>');
 				i = 0;
-				while(projectСonfig[prop][i]!==undefined){
-					element.append($('<option value="'+projectСonfig[prop][i]+'" class="list_option">'+projectСonfig[prop][i]+'</option>'));
-					i+=1;
+				while (config[prop][i] !== undefined) {
+					element.append($('<option value="' + config[prop][i] + '" class="list_option">' + config[prop][i] + '</option>'));
+					i += 1;
 				}
-				self.append('<p>'+this.firstLetter(prop.toString())+'</p>').append(element);
+				self.append('<p>' + this.firstLetter(prop.toString()) + '</p>').append(element);
 			}
 		}
-
 		self.find('ul.tabs').tabs('div.panes > div');
-		if(!container){
+		if (!container) {
 			self.append($('<button id="send">Send</button>'));
 			return self;
 		}
@@ -86,24 +80,24 @@ Builder.prototype = {
 	*@param {DOM Object} formObject DOM fragment with form with inputed data.
 	*@returns {JSON string} json which we send back to the server.
 	*/
-	getJSON: function(formObject){
+	getJSON: function (formObject) {
 		//"use strict";
 		var json = {};
-		$.each(formObject.get(0).elements, function(key,elem){
-			elem=$(elem);
-			if(elem.attr('type') === 'checkbox'){
-			}
-			else if((elem.attr('type') === 'radio')&&(elem.attr('checked') === 'checked')){
-				if(elem.hasClass('bool.true')){
-						json[elem.attr('name')] = true;
-					} else {
-						json[elem.attr('name')] = false;
-					}
+		console.log(formObject.get(0).elements);
+		$.each(formObject.get(0).elements, function (key, elem) {
+			elem = $(elem);
+			if (elem.attr('type') === 'checkbox') {
+			//todo
+			} else if ((elem.attr('type') === 'radio') && (elem.attr('checked') === 'checked')) {
+				if (elem.hasClass('bool.true')) {
+					json[elem.attr('name')] = true;
+				} else {
+					json[elem.attr('name')] = false;
 				}
-				else{
+			} else {
 				json[elem.attr('name')] = elem.val();
-				}
-			});
+			}
+		});
 		return JSON.stringify(json);
 	},
 	/**
@@ -111,22 +105,22 @@ Builder.prototype = {
 	*@method addEventToSetRow
 	*@param {DOM Object} table For our iteration searching for row to add eventListener.
 	*/
-	addEventToSetRow: function(table){
+	addEventToSetRow: function (table) {
 		//"use strict";
 		var rows = $('tr', table),
 			self = this,
 			cells;
-		rows.each(function(i, row){
+		rows.each(function (i, row) {
 			row = $(row);
 			cells = row.find('td');
-			cells.each(function(j, cell){
+			cells.each(function (j, cell) {
 				cell = $(cell);
-				if (cell.text() === 'set'){
+				if (cell.text() === 'set') {
 					row.addClass('set');
 					table.delegate('.set', 'click',  row.attr('id'), Events.tableJobSet);
 				}
-			})
-		})
+			});
+		});
 	},
 	/**buildTable for building a jobs table.
 	*@method buildTable
@@ -134,7 +128,7 @@ Builder.prototype = {
 	*@param {undefined|DOM Object} container Optional argument for adding table right to it? or only generating a table without search and navigation keys.
 	*@returns {DOM Object} table for inheritance using.
 	*/
-	buildTable: function(jobsObject, container){
+	buildTable: function (jobsObject, container) {
 		//"use strict";
 		var table,
 			self = this,
@@ -143,34 +137,35 @@ Builder.prototype = {
 				{ 'mData': 'name' },
 				{ 'mData': 'type' },
 				{ 'mData': 'status' }
-			];
-		if(container!==undefined){
+			],
+			key;
+		if (container !== undefined) {
 			table = $('<table id="table"></table>');
 		} else {
 			table = $('<table id="new_one"></table>');
 		}
 		tr.append($('<th>Name</th><th>Type</th><th>Status</th>'));
-		for(var key in jobsObject[0].parameters){
-			tr.append($('<th>'+key+'</th>'));
-			columnsConfig.push({ 'mData': 'parameters.'+key });
+		for (key in jobsObject[0].parameters) {
+			tr.append($('<th>' + key + '</th>'));
+			columnsConfig.push({ 'mData': 'parameters.' + key });
 		}
 		table.append($('<thead></thead>').append(tr)).append($('<tbody></tbody>'));
-		if(container!==undefined){
+		if (container !== undefined) {
 			container.append(table);
 			table = container.find(table);
 		}
-		table.dataTable( {
+		table.dataTable({
 			"bProcessing": true,
 			"aaData": jobsObject,
-			"aoColumns": columnsConfig, 
-			"fnRowCallback": function(row, data){
+			"aoColumns": columnsConfig,
+			"fnRowCallback": function (row, data) {
 				$(row).attr('id', data.id);
 				return row;
 			},
-			"fnDrawCallback": function(){
+			"fnDrawCallback": function () {
 				self.addEventToSetRow(table);
 			}
-		} );
+		});
 		return table;
 	},
 	/**
@@ -178,37 +173,29 @@ Builder.prototype = {
 	*@method prepareForTree
 	*@param {Object} jobsObject Config object from server with lighter interface compare with jobsObject in Build.buildTable function.
 	*@returns {Object} treeObject Prebuild config object for jstree.
-	*/ 
-	prepareForTree: function(jobsObject){
+	*/
+	prepareForTree: function (jobsObject) {
 		var treeObject = [],
-		treeElement = {};
-		for (var i = 0, max = jobsObject.length; i < max; i+=1){
+			treeElement = {},
+			self = this;
+		jobsObject.forEach(function (value, index) {
 			treeElement = {};
 			treeElement.data = {};
-			if(jobsObject[i].type === 'set'){
-				treeElement.data['title'] = jobsObject[i].name;
-				treeElement.data['attr'] = {id:jobsObject[i].id};
-				treeElement.data['icon'] = 'folder';
-				if(jobsObject[i].subjobs !== undefined){
-					treeElement.children = [];
-					for(var j = 0, childMax = jobsObject[i].subjobs.length; j<childMax; j++){
-						treeElement.children.push({
-							data: {
-								title: jobsObject[i].subjobs[j].name,
-									icon: 'images/job.gif'
-							}
-						});
-					}
+			if (value.type === 'set') {
+				treeElement.data.title = value.name;
+				treeElement.data.attr = {id: value.id, 'class': 'jobset'};
+				treeElement.data.icon = 'folder';
+				if (value.subjobs !== undefined) {
+					treeElement.children = self.prepareForTree(value.subjobs);//recursive calling in mean that jobsets can contain jobsets and workflows
 				}
 				treeObject.push(treeElement);
-			}
-			else if(jobsObject[i].type === 'workflow'){
-				treeElement.data['title'] = jobsObject[i].name;
-				treeElement.data['attr'] = {id:jobsObject[i].id};
-				treeElement.data['icon'] = 'images/alg.png';
+			} else if (value.type === 'workflow') {
+				treeElement.data.title = value.name;
+				treeElement.data.attr = {id: value.id, 'class': 'workflow'};
+				treeElement.data.icon = 'images/alg.png';
 				treeObject.push(treeElement);
 			}
-		}
+		});
 		return treeObject;
 	},
 	/**
@@ -218,11 +205,11 @@ Builder.prototype = {
 	*@param {DOM Object} container For initialization treeview in document.
 	*@returns {DOM Object} container
 	*/
-	buildTree: function(liteJobsObject, container){
+	buildTree: function (liteJobsObject, container) {
 		var treeObject = this.prepareForTree(liteJobsObject);
 		container.jstree({
 			json_data: {
-				data: treeObject,	
+				data: treeObject,
 				progressive_render: true,
 			},
 			ui: {
@@ -232,8 +219,8 @@ Builder.prototype = {
 			themes: {
 				theme: 'apple',
 				url: 'css/jquery.tree.css'
-			} 
+			}
 		});
 		return container;
 	}
-}
+};

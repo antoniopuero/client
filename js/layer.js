@@ -45,17 +45,17 @@ Connection.prototype = {
 			tab3:{
 				tabName: 'lists',
 				e: {
-				type: 'list_check',
-				0: 'el1',
-				1: 'el2',
-				2: 'el3'
-			},
-			f: {
-				type: 'list_option',
-				0: 'el1',
-				1: 'el2',
-				2: 'el3'
-			}
+					type: 'list_check',
+					0: 'el1',
+					1: 'el2',
+					2: 'el3'
+				},
+				f: {
+					type: 'list_option',
+					0: 'el1',
+					1: 'el2',
+					2: 'el3'
+				}
 		}
 		};
 	},
@@ -277,37 +277,26 @@ Connection.prototype = {
 			type: 'set',
 			subjobs: [
 				{
-					name: 'subjob1',
-					type: 1
+					id: 2.1,
+					name: 'jobset',
+					type: 'set'
 				},
 				{
-					name: 'subjob2',
-					type: 1
+					id: 2.2,
+					name: 'jobset',
+					type: 'set'
 				},
 				{
-					name: 'subjob3',
-					type: 1
+					id: 2.3,
+					name: 'jobset',
+					type: 'set'
 				}
 			]
 		},
 		{
 			id: 3,
 			name: 'workflow',
-			type: 'workflow',
-			subjobs: [
-				{
-					name: 'subjob1',
-					type: 1
-				},
-				{
-					name: 'subjob2',
-					type: 1
-				},
-				{
-					name: 'subjob3',
-					type: 1
-				}
-			]
+			type: 'workflow'
 		}
 	];
 	return liteJobs;
