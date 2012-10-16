@@ -159,7 +159,9 @@ Builder.prototype = {
 			"aaData": jobsObject,
 			"aoColumns": columnsConfig,
 			"fnRowCallback": function (row, data) {
-				$(row).attr('id', data.id);
+				row = $(row);
+				row.attr({id: data.id, title: "I'm tooltip for status"});
+				row.tooltip({position: "center right"});
 				return row;
 			},
 			"fnDrawCallback": function () {
