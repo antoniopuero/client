@@ -78,117 +78,117 @@ Connection.prototype = {
 				},
 				status: 'in process'
 			},
-			{	id: 1,
-				name: 'job1',
-				type: 1,
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
-				status: 'in process'
-			},
-			{	id: 1,
-				name: 'job1',
-				type: 1,
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
-				status: 'in process'
-			},
-			{	id: 1,
-				name: 'job1',
-				type: 1,
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
-				status: 'in process'
-			},
-			{	id: 1,
-				name: 'job1',
-				type: 1,
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
-				status: 'in process'
-			},
-			{	id: 1,
-				name: 'job1',
-				type: 1,
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
-				status: 'in process'
-			},
-			{	id: 1,
-				name: 'job1',
-				type: 1,
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
-				status: 'in process'
-			},
-			{	id: 1,
-				name: 'job1',
-				type: 1,
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
-				status: 'in process'
-			},
-			{	id: 1,
-				name: 'job1',
-				type: 1,
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
-				status: 'in process'
-			},
-			{	id: 1,
-				name: 'job1',
-				type: 1,
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
-				status: 'in process'
-			},
-			{	id: 1,
-				name: 'job1',
-				type: 1,
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
-				status: 'in process'
-			},
-			{	id: 1,
-				name: 'job1',
-				type: 1,
-				parameters:{
-					key1: 'value1',
-					key2: 'value2',
-					key3: 'value3'
-				},
-				status: 'in process'
-			},
 			{	id: 2,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 3,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 4,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 5,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 6,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 7,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 8,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 9,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 10,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 11,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 12,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 13,
 				name: 'job3',
 				type: 1,
 				parameters:{
@@ -199,7 +199,7 @@ Connection.prototype = {
 				status: 'in process'
 			},
 			{
-				id: 3,
+				id: 14,
 				name: 'job2',
 				type: 'set',
 				parameters:{
@@ -209,7 +209,7 @@ Connection.prototype = {
 				},
 				subjobs: [
 					{
-						name: 'job2.1',
+						name: 'job14.1',
 						type: 1,
 						parameters:{
 							key1: 'value1',
@@ -219,7 +219,7 @@ Connection.prototype = {
 					status: 'done'
 					},
 					{
-						name: 'job2.2',
+						name: 'job14.2',
 						type: 1,
 						parameters:{
 							key1: 'value1',
@@ -272,29 +272,29 @@ Connection.prototype = {
 	getJobsTree: function(){
 	var liteJobs = [
 		{	
-			id: 2,
+			id: 13,
 			name: 'jobset',
 			type: 'set',
 			subjobs: [
 				{
-					id: 2.1,
+					id: 13.1,
 					name: 'jobset',
 					type: 'set'
 				},
 				{
-					id: 2.2,
+					id: 13.2,
 					name: 'jobset',
 					type: 'set'
 				},
 				{
-					id: 2.3,
+					id: 13.3,
 					name: 'jobset',
 					type: 'set'
 				}
 			]
 		},
 		{
-			id: 3,
+			id: 14,
 			name: 'workflow',
 			type: 'workflow'
 		}

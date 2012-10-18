@@ -2,13 +2,14 @@
 *@constructor
 */
 function Builder(config) {
+	"use strict";
 	this.formC = config.formC;
 	this.tableC = config.tableC;
 	this.treeC = config.treeC;
 }
 Builder.prototype = {
 	firstLetter: function (word) {
-		//"use strict";
+		"use strict";
 		return word.substr(0, 1).toUpperCase() + word.substr(1);
 	},
 	/**
@@ -19,7 +20,7 @@ Builder.prototype = {
 	*@returns {DOM Object} form Builded form 
 	*/
 	buildForm: function (config, container) {
-		//"use strict";
+		"use strict";
 		var fragment = $('<form id ="new_project" name="data" method="post"></form>'),
 			tabsMenu = $('<div id="tabs"></div>'),
 			count = 1,
@@ -81,9 +82,9 @@ Builder.prototype = {
 	*@returns {JSON string} json which we send back to the server.
 	*/
 	getJSON: function (formObject) {
-		//"use strict";
+		"use strict";
 		var json = {};
-		console.log(formObject.get(0).elements);
+		/*console.log(formObject.get(0).elements);
 		$.each(formObject.get(0).elements, function (key, elem) {
 			elem = $(elem);
 			if (elem.attr('type') === 'checkbox') {
@@ -98,7 +99,9 @@ Builder.prototype = {
 				json[elem.attr('name')] = elem.val();
 			}
 		});
-		return JSON.stringify(json);
+		return JSON.stringify(json);*/
+		json = formObject.serializeArray();
+		return json;
 	},
 	/**
 	addEventToSetRow for dinamicly clicked rows in table of jobs.
@@ -106,7 +109,7 @@ Builder.prototype = {
 	*@param {DOM Object} table For our iteration searching for row to add eventListener.
 	*/
 	addEventToSetRow: function (table) {
-		//"use strict";
+		"use strict";
 		var rows = $('tr', table),
 			self = this,
 			cells;
@@ -129,7 +132,7 @@ Builder.prototype = {
 	*@returns {DOM Object} table for inheritance using.
 	*/
 	buildTable: function (jobsObject, container) {
-		//"use strict";
+		"use strict";
 		var table,
 			self = this,
 			tr = $('<tr></tr>'),
@@ -149,6 +152,8 @@ Builder.prototype = {
 			tr.append($('<th>' + key + '</th>'));
 			columnsConfig.push({ 'mData': 'parameters.' + key });
 		}
+		columnsConfig.push({'mData': null});
+		tr.append($('<th><input type="checkbox" id="check_all"></th>'));
 		table.append($('<thead></thead>').append(tr)).append($('<tbody></tbody>'));
 		if (container !== undefined) {
 			container.append(table);
@@ -156,19 +161,39 @@ Builder.prototype = {
 		}
 		table.dataTable({
 			"bProcessing": true,
+			"sDom": '<"top">rt<"bottom"lp><"clear">',
 			"aaData": jobsObject,
 			"aoColumns": columnsConfig,
 			"fnRowCallback": function (row, data) {
 				row = $(row);
 				row.attr({id: data.id, title: "I'm tooltip for status"});
-				row.tooltip({position: "center right"});
+				row.tooltip({
+					position: "center right",
+					predelay: 600,
+					effect: 'fade',
+					opacity: 0.8
+					/*layout: '<div class="tooltip"><div id="tooltip_arrow"/><div id="tooltip_text"/></div>'*/
+				});
 				return row;
 			},
+			"aoColumnDefs": [
+				{
+					"fnRender" : function (oObj) {
+						console.log(oObj);
+						return '<input type="checkbox" value="row_id' + oObj.aData.id + '" class = "row_checkers">';
+					},
+					"bSortable": false,
+					"aTargets": [columnsConfig.length - 1],
+				}
+			],
 			"fnDrawCallback": function () {
 				self.addEventToSetRow(table);
 			}
 		});
 		return table;
+	},
+	buildActionMenu: function (node) {
+		//TODO: build menu with buttons to delete, undo and ... jobs
 	},
 	/**
 	*prepareForTree is function which prebuild the tree of jobsets and workflows.
@@ -177,6 +202,7 @@ Builder.prototype = {
 	*@returns {Object} treeObject Prebuild config object for jstree.
 	*/
 	prepareForTree: function (jobsObject) {
+		"use strict";
 		var treeObject = [],
 			treeElement = {},
 			self = this;
@@ -186,7 +212,7 @@ Builder.prototype = {
 			if (value.type === 'set') {
 				treeElement.data.title = value.name;
 				treeElement.data.attr = {id: value.id, 'class': 'jobset'};
-				treeElement.data.icon = 'folder';
+				treeElement.data.icon = 'images/folder.png';
 				if (value.subjobs !== undefined) {
 					treeElement.children = self.prepareForTree(value.subjobs);//recursive calling in mean that jobsets can contain jobsets and workflows
 				}
@@ -208,6 +234,7 @@ Builder.prototype = {
 	*@returns {DOM Object} container
 	*/
 	buildTree: function (liteJobsObject, container) {
+		"use strict";
 		var treeObject = this.prepareForTree(liteJobsObject);
 		container.jstree({
 			json_data: {

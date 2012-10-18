@@ -12,6 +12,7 @@ Events = {
 	* @param {eventObject} dialog Contains all needed information.
 	*/
 	onCloseModal: function (dialog) {
+		"use strict";
 		Events.clickedRows = [];
 		$.modal.close();
 	},
@@ -21,6 +22,7 @@ Events = {
 	*@param {number|string} id Indentifier of some job[set].
 	*/
 	tableJobSet: function (e, id) {
+		"use strict";
 		var self = Events,
 			tableC = $('#table_container'),
 			jsonData,
@@ -33,7 +35,7 @@ Events = {
 		console.log(id);
 		if ((id !== null) && (id !== undefined)) {
 			console.log('if');
-			for (i = 0; i < max; i++) {
+			for (i = 0; i < max; i += 1) {
 				if (cR[i] === id) {
 					return false;
 				}
@@ -53,6 +55,7 @@ Events = {
 	*@param {DOM Object} tree DOM Object fetched by jQuery.
 	*/
 	treeSet: function (tree) {
+		"use strict";
 		var self = this;
 		tree = self.build.buildTree(self.connect.getJobsTree(), tree);
 		tree.bind('select_node.jstree', function (event, data) {
@@ -131,6 +134,28 @@ $(document).ready(function () {
 		e.preventDefault();
 		console.log(Events.build.getJSON($('#new_project')));
 		$('.modalCloseImg').trigger('click');
+	});
+	$('#table_container').delegate('#check_all', 'change', function (e) {
+		var i = 0,
+			max,
+			elems = $('.row_checkers'),
+			boolFlag;
+		/*if (e.target.checked) {
+			boolFlag = true;
+		} else {
+			boolFlag = false;
+		}
+		for (max = elems.length; i < max; i += 1) {
+			elems[i].checked = boolFlag;
+		}*/
+		if (e.target.checked) {
+			elems.attr('checked', true);
+		} else {
+			elems.attr('checked', false);
+		}
+	});
+	$('#table_container').delegate('.row_checkers', 'change', function (e) {
+		console.log('trigger');
 	});
 	Events.treeSet($('#tree'));
 });
