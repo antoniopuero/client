@@ -110,7 +110,7 @@ Builder.prototype = {
 	*/
 	addEventToSetRow: function (table) {
 		"use strict";
-		var rows = $('tr', table),
+		var rows = table.find('tr'),
 			self = this,
 			cells;
 		rows.each(function (i, row) {
@@ -172,7 +172,6 @@ Builder.prototype = {
 					predelay: 600,
 					effect: 'fade',
 					opacity: 0.8
-					/*layout: '<div class="tooltip"><div id="tooltip_arrow"/><div id="tooltip_text"/></div>'*/
 				});
 				return row;
 			},
@@ -193,7 +192,10 @@ Builder.prototype = {
 		return table;
 	},
 	buildActionMenu: function (node) {
-		//TODO: build menu with buttons to delete, undo and ... jobs
+		node.prepend($('<button id="row_delete">delete</button><button id="row_stop">stop</button><button id="row_start">start</button>'))
+	},
+	destroyActionMenu: function (node) {
+		node.find('button').detach();
 	},
 	/**
 	*prepareForTree is function which prebuild the tree of jobsets and workflows.

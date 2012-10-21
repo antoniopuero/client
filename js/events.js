@@ -30,9 +30,9 @@ Events = {
 			i,
 			max = cR.length;
 		tableC.empty();
+		tableC.append('<div id="action_menu"></div>');
 		e.preventDefault();
 		id = e.data || id;
-		console.log(id);
 		if ((id !== null) && (id !== undefined)) {
 			console.log('if');
 			for (i = 0; i < max; i += 1) {
@@ -136,10 +136,9 @@ $(document).ready(function () {
 		$('.modalCloseImg').trigger('click');
 	});
 	$('#table_container').delegate('#check_all', 'change', function (e) {
-		var i = 0,
-			max,
-			elems = $('.row_checkers'),
-			boolFlag;
+		var elems = $('.row_checkers'),
+			container = $('#action_menu');
+		console.log(container);
 		/*if (e.target.checked) {
 			boolFlag = true;
 		} else {
@@ -150,12 +149,30 @@ $(document).ready(function () {
 		}*/
 		if (e.target.checked) {
 			elems.attr('checked', true);
+			Events.build.destroyActionMenu(container);
+			Events.build.buildActionMenu(container);
 		} else {
 			elems.attr('checked', false);
+			Events.build.destroyActionMenu(container);
 		}
 	});
 	$('#table_container').delegate('.row_checkers', 'change', function (e) {
-		console.log('trigger');
+		var elems = $('.row_checkers'),
+			container = $('#action_menu'),
+			boolFlag;
+		boolFlag = Array.prototype.some.call(elems, function(elem){
+			return (elem.checked == true);
+		});
+		if (e.target.checked) {
+			if(boolFlag){
+				Events.build.destroyActionMenu(container);
+			}
+			Events.build.buildActionMenu(container);
+		} else {
+			if(!boolFlag){
+				Events.build.destroyActionMenu(container);
+			}
+		}
 	});
 	Events.treeSet($('#tree'));
 });
