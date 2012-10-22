@@ -7,6 +7,7 @@ Events = {
 	}),
 	connect: new Connection(),
 	clickedRows: [],
+	checkedRows: [],
 	/**onCloseModal calls when modal window is about to close.
 	*@method onCloseModal
 	* @param {eventObject} dialog Contains all needed information.
@@ -71,6 +72,7 @@ Events = {
 };
 /*-------------------------------constant handlers--------------------------------*/
 $(document).ready(function () {
+	"use strict";
 	var keyFlag = true,
 		ctrlKey = true,
 		keyNames = {
@@ -137,8 +139,9 @@ $(document).ready(function () {
 	});
 	$('#table_container').delegate('#check_all', 'change', function (e) {
 		var elems = $('.row_checkers'),
-			container = $('#action_menu');
-		console.log(container);
+			container = $('#action_menu'),
+			i,
+			max = elems.length;
 		/*if (e.target.checked) {
 			boolFlag = true;
 		} else {
@@ -148,10 +151,14 @@ $(document).ready(function () {
 			elems[i].checked = boolFlag;
 		}*/
 		if (e.target.checked) {
+			for (i = 0; i < max; i += 1) {
+				Events.checkedRows.push(parseInt($(elems[i]).val().substr(6)));
+			}
 			elems.attr('checked', true);
 			Events.build.destroyActionMenu(container);
 			Events.build.buildActionMenu(container);
 		} else {
+			Events.checkedRows = [];
 			elems.attr('checked', false);
 			Events.build.destroyActionMenu(container);
 		}
@@ -160,19 +167,30 @@ $(document).ready(function () {
 		var elems = $('.row_checkers'),
 			container = $('#action_menu'),
 			boolFlag;
-		boolFlag = Array.prototype.some.call(elems, function(elem){
-			return (elem.checked == true);
+		boolFlag = Array.prototype.some.call(elems, function (elem) {
+			return (elem.checked === true);
 		});
 		if (e.target.checked) {
 			if(boolFlag){
 				Events.build.destroyActionMenu(container);
 			}
+			Events.checkedRows.push(parseInt(e.target.value.substr(6)));
 			Events.build.buildActionMenu(container);
 		} else {
-			if(!boolFlag){
+			Events.checkedRows = Events.checkedRows.filter(function (value, key) {
+				return (value !== parseInt(e.target.value.substr(6)));
+			});
+			if (!boolFlag) {
 				Events.build.destroyActionMenu(container);
 			}
 		}
 	});
 	Events.treeSet($('#tree'));
+	$('#table_container').delegate('#row_delete', 'click', function (e) {
+		var length = Events.checkedRows.length,
+		i;
+		for (i = 0; i < length; i += 1) {
+			$('#'+ Events.checkedRows[i]).remove();
+		}
+	});
 });
