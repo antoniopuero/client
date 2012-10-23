@@ -6,6 +6,7 @@ Events = {
 		treeC: $('#tree')
 	}),
 	connect: new Connection(),
+	table: [],
 	clickedRows: [],
 	checkedRows: [],
 	/**onCloseModal calls when modal window is about to close.
@@ -30,12 +31,11 @@ Events = {
 			cR = self.clickedRows,
 			i,
 			max = cR.length;
+		e.preventDefault();
 		tableC.empty();
 		tableC.append('<div id="action_menu"></div>');
-		e.preventDefault();
 		id = e.data || id;
 		if ((id !== null) && (id !== undefined)) {
-			console.log('if');
 			for (i = 0; i < max; i += 1) {
 				if (cR[i] === id) {
 					return false;
@@ -43,13 +43,12 @@ Events = {
 			}
 			cR.push(id);
 			jsonData = self.connect.getJobs(parseInt(id, 10));
-			tableC.append(self.build.buildTable(jsonData));
+			self.table = self.build.buildTable(jsonData, tableC);//now table is dom elem
 		} else {
-			console.log('else');
 			jsonData = self.connect.getJobs();
-			self.build.buildTable(jsonData, tableC);
+			self.table = self.build.buildTable(jsonData, tableC);
 		}
-		tableC.modal({onClose: self.onCloseModal});
+		tableC.show();
 	},
 	/**treeSet calls when we're about to create tree of jobs.
 	*@method treeSet
@@ -150,6 +149,7 @@ $(document).ready(function () {
 		for (max = elems.length; i < max; i += 1) {
 			elems[i].checked = boolFlag;
 		}*/
+		Events.checkedRows = [];
 		if (e.target.checked) {
 			for (i = 0; i < max; i += 1) {
 				Events.checkedRows.push(parseInt($(elems[i]).val().substr(6)));
@@ -188,9 +188,15 @@ $(document).ready(function () {
 	Events.treeSet($('#tree'));
 	$('#table_container').delegate('#row_delete', 'click', function (e) {
 		var length = Events.checkedRows.length,
-		i;
+		i,
+		pos;
+		e.preventDefault();
 		for (i = 0; i < length; i += 1) {
-			$('#'+ Events.checkedRows[i]).remove();
+			pos = Events.table.fnGetPosition($('tr#'+ Events.checkedRows[i]).get(0));
+			Events.table.fnDeleteRow(pos);
 		}
+		$('#check_all').attr('checked', false);
+		Events.build.destroyActionMenu($('#action_menu'));
+		Events.checkedRows = [];
 	});
 });

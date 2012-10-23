@@ -14,6 +14,7 @@ table.dataTable thead th {
 	font-weight: bold;
 	cursor: pointer;
 	*cursor: hand;
+	text-align: center;
 }
 
 table.dataTable tfoot th {
@@ -24,6 +25,7 @@ table.dataTable tfoot th {
 
 table.dataTable td {
 	padding: 3px 10px;
+	text-align: center;
 }
 
 table.dataTable td.center,

@@ -108,7 +108,7 @@ Builder.prototype = {
 	*@method addEventToSetRow
 	*@param {DOM Object} table For our iteration searching for row to add eventListener.
 	*/
-	addEventToSetRow: function (table) {
+	/*addEventToSetRow: function (table) {
 		"use strict";
 		var rows = table.find('tr'),
 			self = this,
@@ -124,7 +124,7 @@ Builder.prototype = {
 				}
 			});
 		});
-	},
+	},*/
 	/**buildTable for building a jobs table.
 	*@method buildTable
 	*@param {Object} jobsObject Object with all information about jobs from server, which we add to the table.
@@ -133,7 +133,7 @@ Builder.prototype = {
 	*/
 	buildTable: function (jobsObject, container) {
 		"use strict";
-		var table,
+		var table = $('<table id="table"></table>'),
 			self = this,
 			tr = $('<tr></tr>'),
 			columnsConfig = [
@@ -142,11 +142,6 @@ Builder.prototype = {
 				{ 'mData': 'status' }
 			],
 			key;
-		if (container !== undefined) {
-			table = $('<table id="table"></table>');
-		} else {
-			table = $('<table id="new_one"></table>');
-		}
 		tr.append($('<th>Name</th><th>Type</th><th>Status</th>'));
 		for (key in jobsObject[0].parameters) {
 			tr.append($('<th>' + key + '</th>'));
@@ -155,11 +150,8 @@ Builder.prototype = {
 		columnsConfig.push({'mData': null});
 		tr.append($('<th><input type="checkbox" id="check_all"></th>'));
 		table.append($('<thead></thead>').append(tr)).append($('<tbody></tbody>'));
-		if (container !== undefined) {
-			container.append(table);
-			table = container.find(table);
-		}
-		table.dataTable({
+		container.append(table);
+		table = container.find(table).dataTable({
 			"bProcessing": true,
 			"sDom": '<"top">rt<"bottom"lp><"clear">',
 			"aaData": jobsObject,
@@ -167,35 +159,35 @@ Builder.prototype = {
 			"fnRowCallback": function (row, data) {
 				row = $(row);
 				row.attr({id: data.id, title: "I'm tooltip for status"});
-				row.tooltip({
+				/*row.tooltip({
 					position: "center right",
 					predelay: 600,
 					effect: 'fade',
 					opacity: 0.8
-				});
+				});*/
 				return row;
 			},
 			"aoColumnDefs": [
 				{
 					"fnRender" : function (oObj) {
-						console.log(oObj);
 						return '<input type="checkbox" value="row_id' + oObj.aData.id + '" class = "row_checkers">';
 					},
 					"bSortable": false,
 					"aTargets": [columnsConfig.length - 1],
 				}
 			],
-			"fnDrawCallback": function () {
-				self.addEventToSetRow(table);
+			"fnDrawCallback": function (arg) {
+				console.log(arg);
+				//self.addEventToSetRow(table);
 			}
 		});
 		return table;
 	},
 	buildActionMenu: function (node) {
-		node.prepend($('<button id="row_delete">delete</button><button id="row_stop">stop</button><button id="row_start">start</button>'))
+		node.prepend($('<a href="#" id="row_delete"></a><a href="#" id="row_stop"></a><a href="#" id="row_start"></a>'))
 	},
 	destroyActionMenu: function (node) {
-		node.find('button').detach();
+		node.find('a').detach();
 	},
 	/**
 	*prepareForTree is function which prebuild the tree of jobsets and workflows.

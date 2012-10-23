@@ -58,12 +58,23 @@ button:active{
         from(#434445),
         to(#a1a1a1));
 }
-/*-----------container-------*/
-#container {
-    float:left;
+/*-----------wrapper-------*/
+#wrapper{
     position: relative;
-    width: 75%;
+    width: 1000px;
+    height: 600px;
+    margin: auto;
+    border: 1px black solid;
+}
+/*-----------container-------*/
+#container_wrapper{
+    float:right;
+    position: relative;
+    width: 80%;
     min-height: 100%;
+}
+#container {
+    margin: 10px;
 }
 /*-------------tree----------*/
 #tree_container{
@@ -93,43 +104,6 @@ button:active{
     padding: 2px 0 0 3px;
     //height: 100%;
 }
-/*------form_container--*/
-#form_container{
-    display: none;
-}
-#form_container label
-{
-width: 4em;
-float: left;
-text-align: right;
-margin-right: 0.5em;
-display: block
-}
-
-#form_container input
-{
-color: #781351;
-background: #fee3ad;
-border: 1px solid #781351
-}
-
-
-#form_container fieldset
-{
-border: 1px solid #781351;
-//width: 20em
-}
-
-#form_container legend
-{
-color: #fff;
-background: #ffa20c;
-border: 1px solid #781351;
-padding: 2px 6px
-}
-#form_container  p{
-    font-weight: bold;
-}
 /*--------------*/
 .set:hover{
 	cursor: pointer;
@@ -146,6 +120,7 @@ padding: 2px 6px
 #table_container{
     position: relative;
 	display: none;
+    margin: 10px;
 }
 #action_menu{
     position: relative;
@@ -153,10 +128,21 @@ padding: 2px 6px
     width: 95%;
     vertical-align: middle;
 }
-#action_menu button{
+#action_menu a{
+    display: block;
     position: relative;
     float: right;
-
+    height: 20px;
+    width: 20px;
+}
+#action_menu #row_delete{
+    background: url(../images/delete.gif);
+}
+#action_menu #row_stop{
+    background: url(../images/stop.png);
+}
+#action_menu #row_start{
+    background: url(../images/play.png);
 }
 /*---------*/
 #statusbar{
@@ -169,73 +155,5 @@ padding: 2px 6px
     top: 100%;
     left: 70%;
     background: rgba(150,150,150,0.5);
-}
-/*------simple-modal---------*/
-#simplemodal-container {
-    min-width: 600px;
-}
-#simplemodal-container a.modalCloseImg {
-	background:url(../images/x.png) no-repeat; /* adjust url as required */
-	width:25px;
-	height:29px;
-	display:inline;
-	z-index:3200;
-	position:absolute;
-	top:-15px;
-	right:-18px;
-	cursor:pointer;
-}
-/*-----jquery tools-----*/
-ul.tabs {
-    margin:0 !important;
-    padding:0;
-    height:30px;
-    border-bottom:1px solid #666;
-}
-/* single tab */
-ul.tabs li {
-    float:left;
-    padding:0;
-    margin:0;
-    list-style-type:none;
-}
-/* link inside the tab. uses a background image */
-ul.tabs a {
-    float:left;
-    font-size:13px;
-    display:block;
-    padding:5px 30px;
-    text-decoration:none;
-    border:1px solid #666;
-    border-bottom:0px;
-    height:18px;
-    background-color:#efefef;
-    color:#777;
-    margin-right:2px;
-    position:relative;
-    top:1px;
-    outline:0;
-    -moz-border-radius:4px 4px 0 0;
-}
-ul.tabs a:hover {
-    background-color:#F7F7F7;
-    color:#333;
-}
-/* selected tab */
-ul.tabs a.current {
-    background-color:#ddd;
-    border-bottom:1px solid #ddd;
-    color:#000;
-    cursor:default;
-}
-
-/* tab pane */
-.panes div {
-    display:none;
-    border:1px solid #666;
-    border-width:0 1px 1px 1px;
-    min-height:150px;
-    padding:15px 20px;
-    background-color:#ddd;
 }
 

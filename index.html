@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Test</title>
-	<link rel="stylesheet" type="text/css" href="css/form_elems.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/jquery.tree.css">
 	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
@@ -17,17 +17,20 @@
 	<script type="text/javascript" src = "js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src = "js/jquery.tools.min.js"></script>
 	<script type="text/javascript" src = "js/simplemodal.js"></script>
+	<a href = 'form.html' target = '_blank'>create new form</a>
+	<div id='wrapper'>
 	<div id='tree_container'>
 		<p>Tree of jobsets:</p>
 		<div id='tree'></div>
-	</div>
-	<div id='container'>
-		<button id='clk1'>Create new project</button>	
-		<button id='clk2'>Get table of projects</button>
-	</div>
-	<div id='form_container'></div>
-	<div id='table_container'>
-		<div id='action_menu'></div>
-	</div><!--table_container-->
+	</div><!--tree_container-->
+	<div id='container_wrapper'>
+		<div id='container'>
+			<div id='table_container'>
+				<div id='action_menu'></div>
+			</div><!--table_container-->
+		</div><!--container-->
+	</div><!--container_wrapper-->
+	<div id='right_menu'></div>
+</div><!--wrapper-->
 </body>
 </html>
