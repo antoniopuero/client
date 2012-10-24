@@ -128,20 +128,20 @@ button:active{
     width: 95%;
     vertical-align: middle;
 }
-#action_menu a{
+.row_do{
     display: block;
     position: relative;
     float: right;
     height: 20px;
     width: 20px;
 }
-#action_menu #row_delete{
+.row_delete{
     background: url(../images/delete.gif);
 }
-#action_menu #row_stop{
+.row_stop{
     background: url(../images/stop.png);
 }
-#action_menu #row_start{
+.row_start{
     background: url(../images/play.png);
 }
 /*---------*/

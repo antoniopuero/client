@@ -12,6 +12,12 @@ Builder.prototype = {
 		"use strict";
 		return word.substr(0, 1).toUpperCase() + word.substr(1);
 	},
+	buildActionMenu: function (node) {
+		node.prepend($('<a href="#" class="row_do row_delete"></a><a href="#" class="row_do row_stop"></a><a href="#" class="row_do row_start"></a>'))
+	},
+	destroyActionMenu: function (node) {
+		node.find('a').detach();
+	},
 	/**
 	*buildForm a simple form, which helps user to init new job.
 	*@method buildForm
@@ -148,7 +154,8 @@ Builder.prototype = {
 			columnsConfig.push({ 'mData': 'parameters.' + key });
 		}
 		columnsConfig.push({'mData': null});
-		tr.append($('<th><input type="checkbox" id="check_all"></th>'));
+		columnsConfig.push({'mData': null});
+		tr.append($('<th><input type="checkbox" id="check_all"></th><th></th>'));
 		table.append($('<thead></thead>').append(tr)).append($('<tbody></tbody>'));
 		container.append(table);
 		table = container.find(table).dataTable({
@@ -173,21 +180,23 @@ Builder.prototype = {
 						return '<input type="checkbox" value="row_id' + oObj.aData.id + '" class = "row_checkers">';
 					},
 					"bSortable": false,
-					"aTargets": [columnsConfig.length - 1],
+					"aTargets": [columnsConfig.length - 2]
+				},
+				{
+					"fnRender" : function (oObj) {
+						return '<div id="clickers_' + oObj.aData.id + '"><a href="#" class="row_do row_delete"></a><a href="#" class="row_do row_stop"></a><a href="#" class="row_do row_start"></a></div>';
+					},
+					"bSortable": false,
+					"sWidth": "60px",
+					"aTargets": [columnsConfig.length - 1]
 				}
 			],
 			"fnDrawCallback": function (arg) {
-				console.log(arg);
+				$('div[id^="clickers_"]').hide();
 				//self.addEventToSetRow(table);
 			}
 		});
 		return table;
-	},
-	buildActionMenu: function (node) {
-		node.prepend($('<a href="#" id="row_delete"></a><a href="#" id="row_stop"></a><a href="#" id="row_start"></a>'))
-	},
-	destroyActionMenu: function (node) {
-		node.find('a').detach();
 	},
 	/**
 	*prepareForTree is function which prebuild the tree of jobsets and workflows.

@@ -186,7 +186,7 @@ $(document).ready(function () {
 		}
 	});
 	Events.treeSet($('#tree'));
-	$('#table_container').delegate('#row_delete', 'click', function (e) {
+	$('#table_container').delegate('.row_delete', 'click', function (e) {
 		var length = Events.checkedRows.length,
 		i,
 		pos;

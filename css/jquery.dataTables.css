@@ -9,12 +9,11 @@ table.dataTable {
 }
 
 table.dataTable thead th {
-	padding: 3px 18px 3px 10px;
+	padding: 3px 18px 3px 6px;
 	border-bottom: 1px solid black;
 	font-weight: bold;
 	cursor: pointer;
 	*cursor: hand;
-	text-align: center;
 }
 
 table.dataTable tfoot th {
@@ -219,4 +218,9 @@ table.dataTable th:active {
 	*margin-top: -1px;
 	-webkit-overflow-scrolling: touch;
 }
+tr.even.row_selected td {
+	background-color: #B0BED9;
+}
 
+tr.odd.row_selected td {
+	background-color: #9FAFD1;
