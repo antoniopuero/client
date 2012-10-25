@@ -152,7 +152,7 @@ $(document).ready(function () {
 		Events.checkedRows = [];
 		if (e.target.checked) {
 			for (i = 0; i < max; i += 1) {
-				Events.checkedRows.push(parseInt($(elems[i]).val().substr(6)));
+				Events.checkedRows.push(parseInt($(elems[i]).val().substr(6), 10));
 			}
 			elems.attr('checked', true);
 			Events.build.destroyActionMenu(container);
@@ -171,32 +171,48 @@ $(document).ready(function () {
 			return (elem.checked === true);
 		});
 		if (e.target.checked) {
-			if(boolFlag){
+			if (boolFlag) {
 				Events.build.destroyActionMenu(container);
 			}
-			Events.checkedRows.push(parseInt(e.target.value.substr(6)));
-			Events.build.buildActionMenu(container);
+			Events.checkedRows.push(parseInt(e.target.value.substr(6), 10));
+			if (Events.checkedRows.length >= 2) {
+				Events.build.buildActionMenu(container);
+			}
 		} else {
 			Events.checkedRows = Events.checkedRows.filter(function (value, key) {
-				return (value !== parseInt(e.target.value.substr(6)));
+				return value !== parseInt(e.target.value.substr(6), 10);
 			});
-			if (!boolFlag) {
+			if (Events.checkedRows.length <= 2) {
 				Events.build.destroyActionMenu(container);
 			}
 		}
 	});
+
 	Events.treeSet($('#tree'));
-	$('#table_container').delegate('.row_delete', 'click', function (e) {
+
+	$('#table_container').delegate('#action_menu a.row_delete', 'click', function (e) {
 		var length = Events.checkedRows.length,
-		i,
-		pos;
+			i,
+			pos;
 		e.preventDefault();
 		for (i = 0; i < length; i += 1) {
-			pos = Events.table.fnGetPosition($('tr#'+ Events.checkedRows[i]).get(0));
+			pos = Events.table.fnGetPosition($('tr#' + Events.checkedRows[i]).get(0));
 			Events.table.fnDeleteRow(pos);
 		}
 		$('#check_all').attr('checked', false);
 		Events.build.destroyActionMenu($('#action_menu'));
 		Events.checkedRows = [];
+	});
+	$('#table_container').delegate('tr div a.row_delete', 'click', function (e) {
+		var self = $(this),
+			pos;
+		pos = Events.table.fnGetPosition($('tr#' + self.parent().attr('id').substr(9)).get(0));
+		Events.table.fnDeleteRow(pos);
+		Events.checkedRows = Events.checkedRows.filter(function (value, key) {
+			return value !== parseInt(self.parent().attr('id').substr(9), 10);
+		});
+		if (Events.checkedRows.length <= 2) {
+			Events.build.destroyActionMenu($('#action_menu'));
+		}
 	});
 });

@@ -13,9 +13,11 @@ Builder.prototype = {
 		return word.substr(0, 1).toUpperCase() + word.substr(1);
 	},
 	buildActionMenu: function (node) {
+		"use strict";
 		node.prepend($('<a href="#" class="row_do row_delete"></a><a href="#" class="row_do row_stop"></a><a href="#" class="row_do row_start"></a>'))
 	},
 	destroyActionMenu: function (node) {
+		"use strict";
 		node.find('a').detach();
 	},
 	/**
@@ -131,6 +133,17 @@ Builder.prototype = {
 			});
 		});
 	},*/
+	addHoverEvent: function (node) {
+		"use strict";
+		node.on('mouseover', function (e) {
+			node.addClass('row_selected');
+			node.find('div[id^=clickers_]').show();
+		});
+		node.on('mouseout', function (e) {
+			node.removeClass('row_selected');
+			node.find('div[id^=clickers_]').hide();
+		});
+	},
 	/**buildTable for building a jobs table.
 	*@method buildTable
 	*@param {Object} jobsObject Object with all information about jobs from server, which we add to the table.
@@ -161,6 +174,7 @@ Builder.prototype = {
 		table = container.find(table).dataTable({
 			"bProcessing": true,
 			"sDom": '<"top">rt<"bottom"lp><"clear">',
+			"bAutoWidth": false,
 			"aaData": jobsObject,
 			"aoColumns": columnsConfig,
 			"fnRowCallback": function (row, data) {
@@ -172,6 +186,7 @@ Builder.prototype = {
 					effect: 'fade',
 					opacity: 0.8
 				});*/
+				self.addHoverEvent(row);
 				return row;
 			},
 			"aoColumnDefs": [
@@ -187,7 +202,7 @@ Builder.prototype = {
 						return '<div id="clickers_' + oObj.aData.id + '"><a href="#" class="row_do row_delete"></a><a href="#" class="row_do row_stop"></a><a href="#" class="row_do row_start"></a></div>';
 					},
 					"bSortable": false,
-					"sWidth": "60px",
+					"sWidth": "80px",
 					"aTargets": [columnsConfig.length - 1]
 				}
 			],

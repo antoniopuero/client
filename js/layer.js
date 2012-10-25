@@ -230,7 +230,47 @@ Connection.prototype = {
 					}
 				],
 				status: 'done'
-			}
+			},
+			{	id: 15,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 17,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 18,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
+			{	id: 19,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value1',
+					key2: 'value2',
+					key3: 'value3'
+				},
+				status: 'in process'
+			},
 		];
 		if (!window.JSON) {
 			window.JSON = {
