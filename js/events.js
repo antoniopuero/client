@@ -131,7 +131,7 @@ $(document).ready(function () {
 			return false;
 		}
 	});
-	$('#form_container').delegate('#send', 'click', function (e) {
+	$('#form_container').delegate('.send_button', 'click', function (e) {
 		e.preventDefault();
 		console.log(Events.build.getJSON($('#new_project')));
 		$('.modalCloseImg').trigger('click');

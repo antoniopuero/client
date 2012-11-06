@@ -53,13 +53,13 @@ Builder.prototype = {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + '" size="40">');
 				self.append(element);
 			} else if (config[prop] === 'bool') {
-				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><span>True:</span><input type="radio" name="' + prop + '" class="bool.true"><span>False:</span><input type="radio" name="' + prop + '" class="bool.false">');
+				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><span>True:</span><input type="radio" name="' + prop + '" class="booltrue"><span>False:</span><input type="radio" name="' + prop + '" class="boolfalse">');
 				self.append(element);
 			} else if (config[prop] === 'blob') {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob" cols="30" rows="15">');
 				self.append(element);
 			} else if (config[prop].type === 'list_check') {
-				element =  $('<fieldset></fieldset>');
+				element =  $('<fieldset class="checklist" name="' + prop + '"></fieldset>');
 				element.append($('<legend>' + this.firstLetter(prop.toString()) + '</legend>'));
 				i = 0;
 				while (config[prop][i] !== undefined) {
@@ -68,18 +68,18 @@ Builder.prototype = {
 				}
 				self.append(element);
 			} else if (config[prop].type === 'list_option') {
-				element =  $('<select multiple></select>');
+				element =  $('<select class="optionlist" multiple="multiple" name="' + prop + '"></select>');
 				i = 0;
 				while (config[prop][i] !== undefined) {
 					element.append($('<option value="' + config[prop][i] + '" class="list_option">' + config[prop][i] + '</option>'));
 					i += 1;
 				}
-				self.append('<p>' + this.firstLetter(prop.toString()) + '</p>').append(element);
+				self.append('<p>' + this.firstLetter(prop.toString()) + '</p><p>Use ctrl key to multiple select</p>').append(element);
 			}
 		}
 		self.find('ul.tabs').tabs('div.panes > div');
 		if (!container) {
-			self.append($('<button id="send">Send</button>'));
+			self.append($('<button class="send_button">Send</button>'));
 			return self;
 		}
 	},
@@ -91,24 +91,49 @@ Builder.prototype = {
 	*/
 	getJSON: function (formObject) {
 		"use strict";
-		var json = {};
-		/*console.log(formObject.get(0).elements);
+		var json = {},
+			underElems,
+			checked_elems,
+			i, max;
 		$.each(formObject.get(0).elements, function (key, elem) {
 			elem = $(elem);
-			if (elem.attr('type') === 'checkbox') {
-			//todo
-			} else if ((elem.attr('type') === 'radio') && (elem.attr('checked') === 'checked')) {
-				if (elem.hasClass('bool.true')) {
-					json[elem.attr('name')] = true;
-				} else {
-					json[elem.attr('name')] = false;
+			if (elem.hasClass('checklist')) {
+				underElems = elem.find('input');
+				json[elem.attr('name')] = '';
+				for (i = 0, max = underElems.length; i<max; i++) {
+					if (underElems.get(i).checked === true) {
+						json[elem.attr('name')] += $(underElems.get(i)).attr('name') + ',';
+					}
 				}
+				json[elem.attr('name')] = json[elem.attr('name')].replace(/\,$/, ';');
+			} else if (elem.hasClass('optionlist')) {
+				underElems = elem.find('option');
+				json[elem.attr('name')] = '';
+				for (i = 0, max = underElems.length; i<max; i++) {
+					if (underElems.get(i).selected === true) {
+						json[elem.attr('name')] += underElems.get(i).value + ',';
+					}
+				}
+				json[elem.attr('name')] = json[elem.attr('name')].replace(/\,$/, ';');
 			} else {
-				json[elem.attr('name')] = elem.val();
+				if (elem.attr('type') === 'checkbox') {
+				} else if ((elem.attr('type') === 'radio')&&(elem.attr('checked') === 'checked')) {
+					console.log(elem);
+					if (elem.hasClass('booltrue')) {
+						json[elem.attr('name')] = true;
+					} else {
+						json[elem.attr('name')] = false;
+					}
+				} else {
+					if (!elem.hasClass('.send_button')) {
+						json[elem.attr('name')] = elem.val();
+					}
+				}
 			}
+			
 		});
-		return JSON.stringify(json);*/
-		json = formObject.serializeArray();
+		return JSON.stringify(json);
+
 		return json;
 	},
 	/**
