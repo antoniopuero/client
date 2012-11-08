@@ -272,6 +272,18 @@ Connection.prototype = {
 				status: 'in process'
 			},
 		];
+		for (var i = 0; i< 200; i += 1) {
+			jobs.push({	id: i + 49,
+				name: 'job1',
+				type: 1,
+				parameters:{
+					key1: 'value' + (i + 49),
+					key2: 'value2' + (i + 49),
+					key3: 'value3' + (i + 49)
+				},
+				status: 'in process'
+			});
+		}
 		if (!window.JSON) {
 			window.JSON = {
 				parse: function (sJSON) { return eval("(" + sJSON + ")"); },

@@ -88,6 +88,7 @@ table.dataTable tr.even td.sorting_3 { background-color: #F9F9FF; }
  * Pagination
  */
 .dataTables_paginate {
+	margin-top: 2px;
 	float: right;
 	text-align: right;
 }

@@ -84,6 +84,7 @@ Builder.prototype = {
 		}
 	},
 	addErrorMsq: function (elem, msg) {
+		"use strict";
 		elem.after($('<span class="error_message">' + msg + '</span>'));
 	},
 	delErrorMsg: function (form) {
@@ -227,7 +228,8 @@ Builder.prototype = {
 		container.append(table);
 		table = container.find(table).dataTable({
 			"bProcessing": true,
-			"sDom": '<"top">rt<"bottom"lp><"clear">',
+			"sPaginationType": "full_numbers",
+			"sDom": '<"top">rt<"bottom"p><"clear">',
 			"bAutoWidth": false,
 			"aaData": jobsObject,
 			"aoColumns": columnsConfig,
@@ -278,7 +280,7 @@ Builder.prototype = {
 		var treeObject = [],
 			treeElement = {},
 			self = this;
-		jobsObject.forEach(function (value, index) {
+		$.each(jobsObject, function (index, value) {
 			treeElement = {};
 			treeElement.data = {};
 			if (value.type === 'set') {
@@ -311,7 +313,7 @@ Builder.prototype = {
 		container.jstree({
 			json_data: {
 				data: treeObject,
-				progressive_render: true,
+				progressive_render: true
 			},
 			ui: {
 				select_limit: 2
