@@ -50,13 +50,13 @@ Builder.prototype = {
 				count += 1;
 				self.append(tabsMenu);
 			} else if ((config[prop] === 'int') || (config[prop] === 'float') || (config[prop] === 'string')) {
-				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + '" size="40">');
+				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
 				self.append(element);
 			} else if (config[prop] === 'bool') {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><span>True:</span><input type="radio" name="' + prop + '" class="booltrue"><span>False:</span><input type="radio" name="' + prop + '" class="boolfalse">');
 				self.append(element);
 			} else if (config[prop] === 'blob') {
-				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob" cols="30" rows="15">');
+				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob input" cols="30" rows="15">');
 				self.append(element);
 			} else if (config[prop].type === 'list_check') {
 				element =  $('<fieldset class="checklist" name="' + prop + '"></fieldset>');
@@ -125,7 +125,7 @@ Builder.prototype = {
 						json[elem.attr('name')] = false;
 					}
 				} else {
-					if (!elem.hasClass('.send_button')) {
+					if (elem.hasClass('input')) {
 						json[elem.attr('name')] = elem.val();
 					}
 				}
