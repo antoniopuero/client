@@ -9,15 +9,6 @@ Events = {
 	table: [],
 	clickedRows: [],
 	checkedRows: [],
-	/**onCloseModal calls when modal window is about to close.
-	*@method onCloseModal
-	* @param {eventObject} dialog Contains all needed information.
-	*/
-	onCloseModal: function (dialog) {
-		"use strict";
-		Events.clickedRows = [];
-		$.modal.close();
-	},
 	/**tableJobSet calls when we're about to create table of jobs.
 	*@method tableJobSet
 	*@param {eventObject} e Contains all needed information.
@@ -134,7 +125,6 @@ $(document).ready(function () {
 	$('#form_container').delegate('.send_button', 'click', function (e) {
 		e.preventDefault();
 		console.log(Events.build.getJSON($('#new_project')));
-		$('.modalCloseImg').trigger('click');
 	});
 	$('#table_container').delegate('#check_all', 'change', function (e) {
 		var elems = $('.row_checkers'),

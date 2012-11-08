@@ -91,3 +91,8 @@ ul.tabs a.current {
     padding:15px 20px;
     background-color:#ddd;
 }
+.error_message{
+    color: red;
+    font-size: 14pt;
+    font-family: Helvetica;
+}

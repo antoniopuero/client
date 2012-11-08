@@ -83,6 +83,12 @@ Builder.prototype = {
 			return self;
 		}
 	},
+	addErrorMsq: function (elem, msg) {
+		elem.after($('<span class="error_message">' + msg + '</span>'));
+	},
+	delErrorMsg: function (form) {
+		form.find('.error_message').detach();
+	},
 	/**
 	*getJSON for right conversion of form data to JSON format.
 	*@method getJSON
@@ -91,50 +97,73 @@ Builder.prototype = {
 	*/
 	getJSON: function (formObject) {
 		"use strict";
-		var json = {},
+		var self = this,
+			json = {},
 			underElems,
-			checked_elems,
-			i, max;
+			error,
+			checkerCount = 0,
+			i = 0,
+			max = 0;
+		self.delErrorMsg(formObject);
 		$.each(formObject.get(0).elements, function (key, elem) {
 			elem = $(elem);
 			if (elem.hasClass('checklist')) {
 				underElems = elem.find('input');
 				json[elem.attr('name')] = '';
-				for (i = 0, max = underElems.length; i<max; i++) {
+				for (i = 0, max = underElems.length; i < max; i +=1) {
 					if (underElems.get(i).checked === true) {
 						json[elem.attr('name')] += $(underElems.get(i)).attr('name') + ',';
 					}
 				}
 				json[elem.attr('name')] = json[elem.attr('name')].replace(/\,$/, ';');
+				if (json[elem.attr('name')] === '') {
+					self.addErrorMsq(elem, 'Please check parameters!');
+					error = 'error';
+				}
 			} else if (elem.hasClass('optionlist')) {
 				underElems = elem.find('option');
 				json[elem.attr('name')] = '';
-				for (i = 0, max = underElems.length; i<max; i++) {
+				for (i = 0, max = underElems.length; i < max; i += 1) {
 					if (underElems.get(i).selected === true) {
 						json[elem.attr('name')] += underElems.get(i).value + ',';
 					}
 				}
 				json[elem.attr('name')] = json[elem.attr('name')].replace(/\,$/, ';');
+				if (json[elem.attr('name')] === '') {
+					self.addErrorMsq(elem, 'Please select parameters!');
+					error = 'error';
+				}
 			} else {
-				if (elem.attr('type') === 'checkbox') {
-				} else if ((elem.attr('type') === 'radio')&&(elem.attr('checked') === 'checked')) {
-					console.log(elem);
-					if (elem.hasClass('booltrue')) {
-						json[elem.attr('name')] = true;
-					} else {
-						json[elem.attr('name')] = false;
+				if (elem.attr('type') === 'radio') {
+					checkerCount += 1;
+					if (elem.attr('checked') === 'checked') {
+						if (elem.hasClass('booltrue')) {
+							json[elem.attr('name')] = 'true';
+						} else if (elem.hasClass('boolfalse')){
+							json[elem.attr('name')] = 'false';
+						}
+					}
+					if ((checkerCount === 2) && (json[elem.attr('name')] === undefined)) {
+						self.addErrorMsq(elem, 'Please select parameter!');
+						error = 'error';
 					}
 				} else {
 					if (elem.hasClass('input')) {
 						json[elem.attr('name')] = elem.val();
 					}
+					if (json[elem.attr('name')] === '') {
+						self.addErrorMsq(elem, 'Please input parameter!');
+						error = 'error';
+					}
 				}
 			}
-			
 		});
-		return JSON.stringify(json);
-
-		return json;
+		if (error === 'error') {
+			self.addErrorMsq($('.send_button'), 'Please input all parameters!');
+			return false;
+		} else {
+			return json;
+		}
 	},
 	/**
 	addEventToSetRow for dinamicly clicked rows in table of jobs.
