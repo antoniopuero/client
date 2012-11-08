@@ -4,8 +4,8 @@ $(document).ready(function () {
 	serverEvent.addEventListener('message', function (e) {
 		var wind = $('<div id="statusbar"></div>');
 		wind.append('Current status of the work: ' + e.data);
-		$('body').append(wind);
-		wind = $('body').find(wind);
+		$('#container_wrapper').append(wind);
+		wind = $('#container_wrapper').find(wind);
 		wind.show();
 		wind.animate({
 			top: '93%',

@@ -3,6 +3,7 @@
 <head>
 	<title>Test</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/form.css">
 	<link rel="stylesheet" type="text/css" href="css/jquery.tree.css">
 	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables.css">
 	<link rel="stylesheet" type="text/css" href="css/jquery.dataTables_themeroller.css">
@@ -19,24 +20,9 @@
 	<div id='wrapper'>
 		<div id='top_menu'>
 			<ul class='top_menu_items'>
+				<li class='top_menu_items_item'><a href="index.php">Job info</a></li>
 				<li class='top_menu_items_item'><a href="#">Create project</a></li>
-				<li class='top_menu_items_item'><a href="form.html">Create job</a></li>
+				<li class='top_menu_items_item'><a href="form.php">Create job</a></li>
 				<li class='top_menu_items_item'><a href="#">Create workflow</a></li>
 			</ul>
 		</div><!--top_menu-->
-		<div id='inner'>
-			<div id='tree_container'>
-				<p>Tree of jobsets:</p>
-				<div id='tree'></div>
-			</div><!--tree_container-->
-			<div id='container_wrapper'>
-				<div id='container'>
-					<div id='table_container'>
-						<div id='action_menu'></div>
-					</div><!--table_container-->
-				</div><!--container-->
-			</div><!--container_wrapper-->
-		</div><!--inner-->
-</div><!--wrapper-->
-</body>
-</html>
