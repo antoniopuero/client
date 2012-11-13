@@ -124,7 +124,7 @@ $(document).ready(function () {
 	});
 	$('#form_container').delegate('.send_button', 'click', function (e) {
 		e.preventDefault();
-		//console.log(Events.build.getJSON($('#new_project')));
+		console.log(Events.build.getJSON($('#new_project')));
 	});
 	$('#table_container').delegate('#check_all', 'change', function (e) {
 		var elems = $('.row_checkers'),

@@ -235,7 +235,7 @@ Builder.prototype = {
 			"aoColumns": columnsConfig,
 			"fnRowCallback": function (row, data) {
 				row = $(row);
-				row.attr({id: data.id, title: "I'm tooltip for status"});
+				row.attr({id: data.id});
 				/*row.tooltip({
 					position: "center right",
 					predelay: 600,

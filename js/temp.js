@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	var serverEvent = new EventSource('test.php');
+	var serverEvent = new EventSource('server-proc/test.php');
 	$('#clk2').click(Events.tableJobSet);
 	serverEvent.addEventListener('message', function (e) {
 		var wind = $('<div id="statusbar"></div>');
