@@ -1,6 +1,8 @@
 /**@constructor*/
 function Connection(config){
-
+	"use strict";
+	this.jobInfoSource = config.jobInfo;
+	this.newJobSource = config.newJob;
 }
 Connection.prototype = {
 	/**
@@ -29,33 +31,25 @@ Connection.prototype = {
 	*@method getNewJob
 	*@returns {Object} configDataObject.
 	*/
-	getNewJob: function(){
+	getNewJob: function () {
+		"use strict";
 		return {
-			tab1: {
-				tabName: 'digits',
-				b: 'float',
-				a: 'int'
+			b: 'float',
+			a: 'int',
+			c: 'bool',
+			d: 'blob',
+			e: {
+				type: 'list_check',
+				0: 'el1',
+				1: 'el2',
+				2: 'el3'
 			},
-			tab2: {
-				tabName: 'other',
-				c: 'bool',
-				d: 'blob'
-			},
-			tab3:{
-				tabName: 'lists',
-				e: {
-					type: 'list_check',
-					0: 'el1',
-					1: 'el2',
-					2: 'el3'
-				},
-				f: {
-					type: 'list_option',
-					0: 'el1',
-					1: 'el2',
-					2: 'el3'
-				}
-		}
+			f: {
+				type: 'list_option',
+				0: 'el1',
+				1: 'el2',
+				2: 'el3'
+			}
 		};
 	},
 	/**
@@ -70,7 +64,7 @@ Connection.prototype = {
 			jobs,
 			jsonStr;
 		$.ajax({
-			url: 'server-proc/job.php',
+			url: self.jobInfoSource,
 			async: false,
 			dataType: 'JSON',
 			success: function (data) {

@@ -5,7 +5,10 @@ Events = {
 		tableC: $('#table_container'),
 		treeC: $('#tree')
 	}),
-	connect: new Connection(),
+	connect: new Connection({
+		jobInfo: "/server-proc/job.php",
+		newJob: "/server-proc/new_job.php"
+	}),
 	table: [],
 	clickedRows: [],
 	checkedRows: [],

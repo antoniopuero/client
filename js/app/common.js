@@ -29,35 +29,23 @@ Builder.prototype = {
 	*/
 	buildForm: function (config, container) {
 		"use strict";
-		var fragment = $('<form id ="new_project" name="data" method="post"></form>'),
-			tabsMenu = $('<div id="tabs"></div>'),
-			count = 1,
-			i = 0,
+		var i = 0,
 			element,
-			prop,
-			self = fragment;
-		if (container) {
-			self = container;
-		}
+			prop;
+		console.log(config);
 		for (prop in config) {
-			if ((typeof config[prop] === 'object') && (config[prop].tabName)) {
-				if (count === 1) {
-					tabsMenu.append($('<ul class = "tabs"></ul><div class="panes"></div>'));
-				}
-				tabsMenu.find('.tabs').append($('<li><a href="#tabs-' + count + '">' + config[prop].tabName + '</a></li>'));
-				tabsMenu.find('.panes').append($('<div id = "tabs-' + count + '"></div>'));
-				this.buildForm(config[prop], tabsMenu.find('#tabs-' + count));
-				count += 1;
-				self.append(tabsMenu);
-			} else if ((config[prop] === 'int') || (config[prop] === 'float') || (config[prop] === 'string')) {
+			if ((config[prop] === 'int') || (config[prop] === 'float')) {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
-				self.append(element);
+				container.find('div[id$=digits]').append(element);
+			} else if (config[prop] === 'string') {
+				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
+				container.find('div[id$=other]').append(element);
 			} else if (config[prop] === 'bool') {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><span>True:</span><input type="radio" name="' + prop + '" class="booltrue"><span>False:</span><input type="radio" name="' + prop + '" class="boolfalse">');
-				self.append(element);
+				container.find('div[id$=other]').append(element);
 			} else if (config[prop] === 'blob') {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob input" cols="30" rows="15">');
-				self.append(element);
+				container.find('div[id$=other]').append(element);
 			} else if (config[prop].type === 'list_check') {
 				element =  $('<fieldset class="checklist" name="' + prop + '"></fieldset>');
 				element.append($('<legend>' + this.firstLetter(prop.toString()) + '</legend>'));
@@ -66,7 +54,7 @@ Builder.prototype = {
 					element.append($('<p><input type="checkbox" name="' + config[prop][i] + '" class="list_checks">' + config[prop][i] + '</p>'));
 					i += 1;
 				}
-				self.append(element);
+				container.find('div[id$=lists]').append(element);
 			} else if (config[prop].type === 'list_option') {
 				element =  $('<select class="optionlist" multiple="multiple" name="' + prop + '"></select>');
 				i = 0;
@@ -74,14 +62,10 @@ Builder.prototype = {
 					element.append($('<option value="' + config[prop][i] + '" class="list_option">' + config[prop][i] + '</option>'));
 					i += 1;
 				}
-				self.append('<p>' + this.firstLetter(prop.toString()) + '</p><p>Use ctrl key to multiple select</p>').append(element);
+				container.find('div[id$=lists]').append('<p>' + this.firstLetter(prop.toString()) + '</p><p>Use ctrl key to multiple select</p>').append(element);
 			}
 		}
-		self.find('ul.tabs').tabs('div.panes > div');
-		if (!container) {
-			self.append($('<button class="send_button">Send</button>'));
-			return self;
-		}
+		container.find('ul.tabs').tabs('div.panes > div');
 	},
 	addErrorMsq: function (elem, msg) {
 		"use strict";
@@ -118,7 +102,7 @@ Builder.prototype = {
 				}
 				json[elem.attr('name')] = json[elem.attr('name')].replace(/\,$/, ';');
 				if (json[elem.attr('name')] === '') {
-					self.addErrorMsq(elem, 'Please check parameters!');
+					self.addErrorMsq(elem, 'Mandatory field!');
 					error = 'error';
 				}
 			} else if (elem.hasClass('optionlist')) {
@@ -131,7 +115,7 @@ Builder.prototype = {
 				}
 				json[elem.attr('name')] = json[elem.attr('name')].replace(/\,$/, ';');
 				if (json[elem.attr('name')] === '') {
-					self.addErrorMsq(elem, 'Please select parameters!');
+					self.addErrorMsq(elem, 'Mandatory information');
 					error = 'error';
 				}
 			} else {
@@ -145,7 +129,7 @@ Builder.prototype = {
 						}
 					}
 					if ((checkerCount === 2) && (json[elem.attr('name')] === undefined)) {
-						self.addErrorMsq(elem, 'Please select parameter!');
+						self.addErrorMsq(elem, 'Mandatory information');
 						error = 'error';
 					}
 				} else {
@@ -153,14 +137,14 @@ Builder.prototype = {
 						json[elem.attr('name')] = elem.val();
 					}
 					if (json[elem.attr('name')] === '') {
-						self.addErrorMsq(elem, 'Please input parameter!');
+						self.addErrorMsq(elem, 'Mandatory field!');
 						error = 'error';
 					}
 				}
 			}
 		});
 		if (error === 'error') {
-			self.addErrorMsq($('.send_button'), 'Please input all parameters!');
+			self.addErrorMsq($('.send_button'), 'Please, fill in all the mandatory information!');
 			return false;
 		} else {
 			return json;
