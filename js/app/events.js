@@ -1,13 +1,14 @@
 /** @namespace */
 Events = {
 	build : new Builder({
-		formC: $('#form_container'),
-		tableC: $('#table_container'),
-		treeC: $('#tree')
+		formId: 'form_container',
+		tableId: 'table_container',
+		treeId: 'tree'
 	}),
 	connect: new Connection({
 		jobInfo: "/server-proc/job.php",
-		newJob: "/server-proc/new_job.php"
+		newJob: "/server-proc/new_job.php",
+		eventSource: "/server-proc/test.php"
 	}),
 	table: [],
 	clickedRows: [],
@@ -20,7 +21,7 @@ Events = {
 	tableJobSet: function (e, id) {
 		"use strict";
 		var self = Events,
-			tableC = $('#table_container'),
+			tableC = $('#' + self.build.tableId),
 			jsonData,
 			cR = self.clickedRows,
 			i,
@@ -55,18 +56,26 @@ Events = {
 		tree.bind('select_node.jstree', function (event, data) {
 			var target = data.rslt.obj.find('a');//a contains all information, which we added in build proccess
 			if (target.hasClass('jobset')) {
-				//console.log('set');
 				self.tableJobSet(event, target.attr('id'));
 			} else if (target.hasClass('workflow')) {
 				//console.log('workflow');
 			}
 		});
+	},
+	formConstruct: function (container) {
+		"use strict";
+		var jsonData = this.connect.send();
+		Events.build.buildForm(jsonData, container);
+		container.show();
 	}
 };
 /*-------------------------------constant handlers--------------------------------*/
 $(document).ready(function () {
 	"use strict";
-	var keyFlag = true,
+	var formC = $('#' + Events.build.formId),
+		tableC = $('#' + Events.build.tableId),
+		serverEvent = new EventSource(Events.connect.eventSource),
+		keyFlag = true,
 		ctrlKey = true,
 		keyNames = {
 			'TAB': 9,
@@ -78,7 +87,23 @@ $(document).ready(function () {
 			'RIGHT': 39
 		},
 		prop;
-	$('#form_container').delegate('.int', 'keypress', function (e) {
+	serverEvent.addEventListener('message', function (e) {
+		var wind = $('<div id="statusbar"></div>');
+		wind.append('Current status of the work: ' + e.data);
+		$('#container_wrapper').append(wind);
+		wind = $('#container_wrapper').find(wind);
+		wind.show();
+		wind.animate({
+			top: '93%',
+			height: '7%'
+		}, 400);
+		setTimeout(function () {
+			wind.hide();
+			wind.detach();
+		}, 2000);
+	}, false);
+	Events.formConstruct(formC);
+	formC.delegate('.int', 'keypress', function (e) {
 		keyFlag = true;
 		ctrlKey = true;
 		for (prop in keyNames) {
@@ -98,7 +123,7 @@ $(document).ready(function () {
 			return false;
 		}
 	});
-	$('#form_container').delegate('.float', 'keypress', function (e) {
+	formC.delegate('.float', 'keypress', function (e) {
 		var prop;
 		keyFlag = true;
 		ctrlKey = true;
@@ -125,11 +150,11 @@ $(document).ready(function () {
 			return false;
 		}
 	});
-	$('#form_container').delegate('.send_button', 'click', function (e) {
+	formC.delegate('.send_button', 'click', function (e) {
 		e.preventDefault();
 		console.log(Events.build.getJSON($('#new_project')));
 	});
-	$('#table_container').delegate('#check_all', 'change', function (e) {
+	tableC.delegate('#check_all', 'change', function (e) {
 		var elems = $('.row_checkers'),
 			container = $('#action_menu'),
 			i,
@@ -156,7 +181,7 @@ $(document).ready(function () {
 			Events.build.destroyActionMenu(container);
 		}
 	});
-	$('#table_container').delegate('.row_checkers', 'change', function (e) {
+	tableC.delegate('.row_checkers', 'change', function (e) {
 		var elems = $('.row_checkers'),
 			container = $('#action_menu'),
 			boolFlag;
@@ -180,10 +205,7 @@ $(document).ready(function () {
 			}
 		}
 	});
-
-	Events.treeSet($('#tree'));
-
-	$('#table_container').delegate('#action_menu a.row_delete', 'click', function (e) {
+	tableC.delegate('#action_menu a.row_delete', 'click', function (e) {
 		var length = Events.checkedRows.length,
 			i,
 			pos;
@@ -196,7 +218,7 @@ $(document).ready(function () {
 		Events.build.destroyActionMenu($('#action_menu'));
 		Events.checkedRows = [];
 	});
-	$('#table_container').delegate('tr div a.row_delete', 'click', function (e) {
+	tableC.delegate('tr div a.row_delete', 'click', function (e) {
 		var self = $(this),
 			pos;
 		pos = Events.table.fnGetPosition($('tr#' + self.parent().attr('id').substr(9)).get(0));
@@ -208,4 +230,5 @@ $(document).ready(function () {
 			Events.build.destroyActionMenu($('#action_menu'));
 		}
 	});
+	Events.treeSet($('#' + Events.build.treeId));
 });

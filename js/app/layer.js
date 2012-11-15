@@ -3,6 +3,7 @@ function Connection(config){
 	"use strict";
 	this.jobInfoSource = config.jobInfo;
 	this.newJobSource = config.newJob;
+	this.eventSource = config.eventSource;
 }
 Connection.prototype = {
 	/**
@@ -68,7 +69,6 @@ Connection.prototype = {
 			async: false,
 			dataType: 'JSON',
 			success: function (data) {
-				console.log(data);
 				jobs = data;
 			}
 		});

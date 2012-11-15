@@ -21,12 +21,9 @@
             </form>
 	</div>
 	</div>
-	<script type="text/javascript">
-	(function () {
-		var c = $('#form_container'),
-				jsonData = Events.connect.send();
-			Events.build.buildForm(jsonData, c);
-			c.show();
-	})();
-	</script>
+	<!--<script type="text/javascript">
+	(function (Events) {
+        Events.formConstruct($('#form_container'));
+	})(Events);
+	</script>-->
 <?php include 'views/footer.php'; ?>

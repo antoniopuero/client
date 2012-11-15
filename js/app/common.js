@@ -3,9 +3,9 @@
 */
 function Builder(config) {
 	"use strict";
-	this.formC = config.formC;
-	this.tableC = config.tableC;
-	this.treeC = config.treeC;
+	this.formId = config.formId;
+	this.tableId = config.tableId;
+	this.treeId = config.treeId;
 }
 Builder.prototype = {
 	firstLetter: function (word) {
@@ -32,7 +32,6 @@ Builder.prototype = {
 		var i = 0,
 			element,
 			prop;
-		console.log(config);
 		for (prop in config) {
 			if ((config[prop] === 'int') || (config[prop] === 'float')) {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
