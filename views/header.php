@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Test</title>
+    <meta default-charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/form.css">
 	<link rel="stylesheet" type="text/css" href="css/jquery.tree.css">

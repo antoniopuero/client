@@ -4,8 +4,22 @@ function Connection(config){
 	this.jobInfoSource = config.jobInfo;
 	this.newJobSource = config.newJob;
 	this.eventSource = config.eventSource;
+	this.liteJob = config.jobSetTree;
 }
 Connection.prototype = {
+	ajax: function (source) {
+		"use strict";
+		var rslt;
+		$.ajax({
+			url: source,
+			async: false,
+			dataType: 'JSON',
+			success: function (data) {
+				rslt = data;
+			}
+		});
+		return rslt;
+	},
 	/**
 	*Function send is using for send response to the server and get the starting information.
 	*@method send
@@ -34,24 +48,7 @@ Connection.prototype = {
 	*/
 	getNewJob: function () {
 		"use strict";
-		return {
-			b: 'float',
-			a: 'int',
-			c: 'bool',
-			d: 'blob',
-			e: {
-				type: 'list_check',
-				0: 'el1',
-				1: 'el2',
-				2: 'el3'
-			},
-			f: {
-				type: 'list_option',
-				0: 'el1',
-				1: 'el2',
-				2: 'el3'
-			}
-		};
+		return this.ajax(this.newJobSource);
 	},
 	/**
 	*getJobs gets jobs list and all information about them.
@@ -61,17 +58,9 @@ Connection.prototype = {
 	*/
 	getJobs: function(id){
 		"use strict";
-		var self = this,
-			jobs,
+		var jobs,
 			jsonStr;
-		$.ajax({
-			url: self.jobInfoSource,
-			async: false,
-			dataType: 'JSON',
-			success: function (data) {
-				jobs = data;
-			}
-		});
+		jobs = this.ajax(this.jobInfoSource);
 		jsonStr = JSON.stringify(jobs);
 		if(this.isLocalStorageAvailable()){
 			localStorage.setItem('jobs', jsonStr);
@@ -87,36 +76,8 @@ Connection.prototype = {
 	*@method getJobsTree
 	*@returns {Object} liteJobs.
 	*/
-	getJobsTree: function(){
-	var liteJobs = [
-		{
-			id: 13,
-			name: 'jobset',
-			type: 'set',
-			subjobs: [
-				{
-					id: 13.1,
-					name: 'jobset',
-					type: 'set'
-				},
-				{
-					id: 13.2,
-					name: 'jobset',
-					type: 'set'
-				},
-				{
-					id: 13.3,
-					name: 'jobset',
-					type: 'set'
-				}
-			]
-		},
-		{
-			id: 14,
-			name: 'workflow',
-			type: 'workflow'
-		}
-	];
-	return liteJobs;
+	getJobsTree: function () {
+		"use strict";
+		return this.ajax(this.liteJob);
 	}
 }

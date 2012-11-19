@@ -8,7 +8,8 @@ Events = {
 	connect: new Connection({
 		jobInfo: "/server-proc/job.php",
 		newJob: "/server-proc/new_job.php",
-		eventSource: "/server-proc/test.php"
+		eventSource: "/server-proc/test.php",
+		jobSetTree: "/server-proc/lite_job.php"
 	}),
 	table: [],
 	clickedRows: [],
@@ -74,6 +75,7 @@ $(document).ready(function () {
 	"use strict";
 	var formC = $('#' + Events.build.formId),
 		tableC = $('#' + Events.build.tableId),
+		treeC = $('#' + Events.build.treeId),
 		serverEvent = new EventSource(Events.connect.eventSource),
 		keyFlag = true,
 		ctrlKey = true,
@@ -102,7 +104,11 @@ $(document).ready(function () {
 			wind.detach();
 		}, 2000);
 	}, false);
-	Events.formConstruct(formC);
+
+	if (formC.get(0) !== undefined) {
+		Events.formConstruct(formC);
+	}
+
 	formC.delegate('.int', 'keypress', function (e) {
 		keyFlag = true;
 		ctrlKey = true;
@@ -230,5 +236,7 @@ $(document).ready(function () {
 			Events.build.destroyActionMenu($('#action_menu'));
 		}
 	});
-	Events.treeSet($('#' + Events.build.treeId));
+	if (treeC.get(0) !== undefined) {
+		Events.treeSet(treeC);
+	}
 });
