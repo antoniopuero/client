@@ -2,6 +2,10 @@
 	<div id='wrap'>
 	<div id='form_container'>
             <form id ="new_project" name="data" method="post">
+                <b>Profiles: </b>
+                <select name="profiles">
+                    <option name="user_settings">&lt;user&gt;</option>
+                </select>
                 <div id="tabs">
                     <ul class = "tabs">
                         <li><a href="#tabs-digits">Digits</a></li>

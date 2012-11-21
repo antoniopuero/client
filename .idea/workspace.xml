@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="10005c61-2d68-4849-a14e-c0350db6dd63" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/events.js" afterPath="$PROJECT_DIR$/js/app/events.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/layer.js" afterPath="$PROJECT_DIR$/js/app/layer.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/header.php" afterPath="$PROJECT_DIR$/views/header.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/form.php" afterPath="$PROJECT_DIR$/form.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/common.js" afterPath="$PROJECT_DIR$/js/app/common.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server-proc/new_job.php" afterPath="$PROJECT_DIR$/server-proc/new_job.php" />
     </list>
     <ignored path="Code.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,16 +42,25 @@
       <file leaf-file-name="form.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/form.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="27" column="16" selection-start="999" selection-end="999" vertical-scroll-proportion="0.0">
+            <state line="14" column="0" selection-start="618" selection-end="658" vertical-scroll-proportion="-9.655172">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="common.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/app/common.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="202" column="44" selection-start="7336" selection-end="7354" vertical-scroll-proportion="0.0">
+            <state line="89" column="45" selection-start="3723" selection-end="3723" vertical-scroll-proportion="0.5307167">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="23" selection-start="529" selection-end="529" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -60,7 +69,7 @@
       <file leaf-file-name="events.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/app/events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="239" column="28" selection-start="6645" selection-end="6645" vertical-scroll-proportion="0.0">
+            <state line="70" column="5" selection-start="2038" selection-end="2038" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -75,28 +84,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="lite_job.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server-proc/lite_job.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="5" selection-start="591" selection-end="591" vertical-scroll-proportion="-20.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="new_job.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server-proc/new_job.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="6" selection-end="40" vertical-scroll-proportion="-0.6896552">
+            <state line="45" column="0" selection-start="971" selection-end="971" vertical-scroll-proportion="-28.965517">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/js/main.js">
+      <file leaf-file-name="lite_job.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server-proc/lite_job.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="10" selection-start="652" selection-end="652" vertical-scroll-proportion="0.76627713">
+            <state line="29" column="5" selection-start="591" selection-end="591" vertical-scroll-proportion="-13.448276">
               <folding />
             </state>
           </provider>
@@ -105,7 +105,7 @@
       <file leaf-file-name="test.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server-proc/test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="6" selection-end="48" vertical-scroll-proportion="0.0">
+            <state line="1" column="0" selection-start="6" selection-end="48" vertical-scroll-proportion="-0.6896552">
               <folding />
             </state>
           </provider>
@@ -152,15 +152,15 @@
         <option value="$PROJECT_DIR$/js/events.js" />
         <option value="$PROJECT_DIR$/server-proc/job.php" />
         <option value="$PROJECT_DIR$/js/layer.js" />
-        <option value="$PROJECT_DIR$/form.php" />
-        <option value="$PROJECT_DIR$/js/app/common.js" />
         <option value="$PROJECT_DIR$/js/app/temp.js" />
         <option value="$PROJECT_DIR$/views/header.php" />
-        <option value="$PROJECT_DIR$/server-proc/new_job.php" />
         <option value="$PROJECT_DIR$/js/app/layer.js" />
         <option value="$PROJECT_DIR$/server-proc/lite_job.php" />
-        <option value="$PROJECT_DIR$/js/app/events.js" />
+        <option value="$PROJECT_DIR$/server-proc/new_job.php" />
+        <option value="$PROJECT_DIR$/form.php" />
         <option value="$PROJECT_DIR$/js/main.js" />
+        <option value="$PROJECT_DIR$/js/app/events.js" />
+        <option value="$PROJECT_DIR$/js/app/common.js" />
       </list>
     </option>
   </component>
@@ -213,6 +213,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -293,7 +294,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -301,7 +301,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="editor.preferences.appearance" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/expressCoding" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
   </component>
@@ -369,7 +369,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852563" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19015151" sideWeight="0.67147434" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19621213" sideWeight="0.67147434" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -444,9 +444,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/views/header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="65" selection-start="1307" selection-end="1307" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="25" column="65" selection-start="1307" selection-end="1307" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/form.php">
@@ -471,51 +469,9 @@
         <state line="955" column="0" selection-start="14383" selection-end="14383" vertical-scroll-proportion="30.608974" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server-proc/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="6" selection-end="48" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="16" selection-start="999" selection-end="999" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="31" selection-start="243" selection-end="256" vertical-scroll-proportion="-0.6896552">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/app/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="202" column="44" selection-start="7336" selection-end="7354" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="7" selection-start="444" selection-end="444" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server-proc/job.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="259" selection-end="293" vertical-scroll-proportion="-3.4482758">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server-proc/new_job.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="6" selection-end="40" vertical-scroll-proportion="-0.6896552">
           <folding />
         </state>
       </provider>
@@ -527,23 +483,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/app/events.js">
+    <entry file="file://$PROJECT_DIR$/views/header.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="239" column="28" selection-start="6645" selection-end="6645" vertical-scroll-proportion="0.0">
+        <state line="10" column="7" selection-start="444" selection-end="444" vertical-scroll-proportion="-6.8965516">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server-proc/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="6" selection-end="48" vertical-scroll-proportion="-0.6896552">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server-proc/new_job.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="0" selection-start="971" selection-end="971" vertical-scroll-proportion="-28.965517">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server-proc/lite_job.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="5" selection-start="591" selection-end="591" vertical-scroll-proportion="-20.0">
+        <state line="29" column="5" selection-start="591" selection-end="591" vertical-scroll-proportion="-13.448276">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server-proc/job.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="0" selection-start="259" selection-end="293" vertical-scroll-proportion="-3.4482758">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="618" selection-end="658" vertical-scroll-proportion="-9.655172">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="10" selection-start="652" selection-end="652" vertical-scroll-proportion="0.76627713">
+        <state line="29" column="23" selection-start="529" selection-end="529" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/app/events.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="5" selection-start="2038" selection-end="2038" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/app/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="89" column="45" selection-start="3723" selection-end="3723" vertical-scroll-proportion="0.5307167">
           <folding />
         </state>
       </provider>

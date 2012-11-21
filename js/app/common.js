@@ -29,22 +29,26 @@ Builder.prototype = {
 	*/
 	buildForm: function (config, container) {
 		"use strict";
-		var i = 0,
+		var digits = container.find('div[id$=digits]'),
+			other = container.find('div[id$=other]'),
+			lists = container.find('div[id$=lists]'),
+			i = 0,
 			element,
 			prop;
+		this.addProfilesToForm(container.find('select[name="profiles"]'), config.profiles);
 		for (prop in config) {
 			if ((config[prop] === 'int') || (config[prop] === 'float')) {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
-				container.find('div[id$=digits]').append(element);
+				digits.append(element);
 			} else if (config[prop] === 'string') {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
-				container.find('div[id$=other]').append(element);
+				other.append(element);
 			} else if (config[prop] === 'bool') {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><span>True:</span><input type="radio" name="' + prop + '" class="booltrue"><span>False:</span><input type="radio" name="' + prop + '" class="boolfalse">');
-				container.find('div[id$=other]').append(element);
+				other.append(element);
 			} else if (config[prop] === 'blob') {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob input" cols="30" rows="15">');
-				container.find('div[id$=other]').append(element);
+				other.append(element);
 			} else if (config[prop].type === 'list_check') {
 				element =  $('<fieldset class="checklist" name="' + prop + '"></fieldset>');
 				element.append($('<legend>' + this.firstLetter(prop.toString()) + '</legend>'));
@@ -53,7 +57,7 @@ Builder.prototype = {
 					element.append($('<p><input type="checkbox" name="' + config[prop][i] + '" class="list_checks">' + config[prop][i] + '</p>'));
 					i += 1;
 				}
-				container.find('div[id$=lists]').append(element);
+				lists.append(element);
 			} else if (config[prop].type === 'list_option') {
 				element =  $('<select class="optionlist" multiple="multiple" name="' + prop + '"></select>');
 				i = 0;
@@ -61,7 +65,7 @@ Builder.prototype = {
 					element.append($('<option value="' + config[prop][i] + '" class="list_option">' + config[prop][i] + '</option>'));
 					i += 1;
 				}
-				container.find('div[id$=lists]').append('<p>' + this.firstLetter(prop.toString()) + '</p><p>Use ctrl key to multiple select</p>').append(element);
+				lists.append('<p>' + this.firstLetter(prop.toString()) + '</p><p>Use ctrl key to multiple select</p>').append(element);
 			}
 		}
 		container.find('ul.tabs').tabs('div.panes > div');
@@ -71,7 +75,22 @@ Builder.prototype = {
 		elem.after($('<span class="error_message">' + msg + '</span>'));
 	},
 	delErrorMsg: function (form) {
+		"use strict";
 		form.find('.error_message').detach();
+	},
+	changeProfile: function (e) {
+		"use strict";
+		console.log(e);
+		var targetName = e.target.selectedOptions[0].innerText;
+		console.log(targetName);
+	},
+	addProfilesToForm: function (selectObject, profiles) {
+		"use strict";
+		var profile;
+		selectObject.on('change', this.changeProfile);
+		for (profile in profiles) {
+			selectObject.append($('<option name="' + profile + '">' + profile + '</option>'));
+		}
 	},
 	/**
 	*getJSON for right conversion of form data to JSON format.
