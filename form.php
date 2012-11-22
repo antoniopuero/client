@@ -19,7 +19,7 @@
                             <div id="tabs-profiles">
                                 <b>Profiles: </b>
                                 <select name="profiles">
-                                    <option name="user_settings">&lt;user&gt;</option>
+                                    <option name="user_settings" class="prf">&lt;user&gt;</option>
                                 </select>
                             </div>
                         </div>

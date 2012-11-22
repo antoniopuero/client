@@ -78,6 +78,15 @@ Builder.prototype = {
 		"use strict";
 		form.find('.error_message').detach();
 	},
+	resetForm: function (formObject) {
+		"use strict";
+		formObject = $(formObject);
+		formObject.find(':checkbox').attr('checked', false);
+		formObject.find(':radio').attr('checked', false);
+		formObject.find('option[class!="prf"]').attr('selected', false);
+		formObject.find('input').val('');
+		formObject.find('textarea').val('');
+	},
 	useProfile: function (formObject, profile) {
 		"use strict";
 		var val,
@@ -86,6 +95,7 @@ Builder.prototype = {
 			selectEl,
 			fieldEl,
 			i;
+		this.resetForm(formObject);
 		formObject = $(formObject);
 		for (val in profile) {
 			if (!$.isArray(profile[val])) {
@@ -120,7 +130,11 @@ Builder.prototype = {
 	changeProfile: function (e) {
 		"use strict";
 		var targetName = e.target.selectedOptions[0].innerText;
-		e.data.self.useProfile(e.target.form, e.data.profiles[targetName]);
+		if (targetName === '<user>') {
+			e.data.self.resetForm(e.target.form);
+		} else {
+			e.data.self.useProfile(e.target.form, e.data.profiles[targetName]);
+		}
 	},
 	addProfilesToForm: function (container, profiles) {
 		"use strict";
@@ -129,7 +143,7 @@ Builder.prototype = {
 		console.dir(profiles);
 		selectObject.on('change', {self: this, profiles: profiles}, this.changeProfile);
 		for (profile in profiles) {
-			selectObject.append($('<option name="' + profile + '">' + profile + '</option>'));
+			selectObject.append($('<option name="' + profile + '" class="prf">' + profile + '</option>'));
 		}
 	},
 	/**
