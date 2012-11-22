@@ -17,47 +17,6 @@ body{
     background: #F2EFDA;
     font-family: 'junction';
 }
-button{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-    color: #000000;
-    padding: 5px 6px;
-    margin: 0;
-    background: -moz-linear-gradient(
-        top,
-        #bec1c4 0%,
-        #fafafa);
-    background: -webkit-gradient(
-        linear, left top, left bottom, 
-        from(#bec1c4),
-        to(#fafafa));
-    -moz-border-radius: 0px;
-    -webkit-border-radius: 0px;
-    border-radius: 0px;
-    border: 0px solid #ffffff;
-    -moz-box-shadow:
-        0px 1px 3px rgba(074,074,074,1),
-        inset 0px 0px 1px rgba(255,255,255,0);
-    -webkit-box-shadow:
-        0px 1px 3px rgba(074,074,074,1),
-        inset 0px 0px 1px rgba(255,255,255,0);
-    box-shadow:
-        0px 1px 3px rgba(074,074,074,1),
-        inset 0px 0px 1px rgba(255,255,255,0);
-    text-shadow:
-        0px -1px 0px rgba(255,255,255,0),
-        0px 1px 0px rgba(255,255,255,0.3);
-}
-button:active{
-    background: -moz-linear-gradient(
-        top,
-        #434445 0%,
-        #a1a1a1);
-    background: -webkit-gradient(
-        linear, left top, left bottom, 
-        from(#434445),
-        to(#a1a1a1));
-}
 /*-----------wrapper-------*/
 #wrapper{
     position: relative;

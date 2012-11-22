@@ -35,7 +35,7 @@ Builder.prototype = {
 			i = 0,
 			element,
 			prop;
-		this.addProfilesToForm(container.find('select[name="profiles"]'), config.profiles);
+		this.addProfilesToForm(container, config.profiles);
 		for (prop in config) {
 			if ((config[prop] === 'int') || (config[prop] === 'float')) {
 				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
@@ -78,16 +78,56 @@ Builder.prototype = {
 		"use strict";
 		form.find('.error_message').detach();
 	},
+	useProfile: function (formObject, profile) {
+		"use strict";
+		var val,
+			inputEl,
+			textEl,
+			selectEl,
+			fieldEl,
+			i;
+		formObject = $(formObject);
+		for (val in profile) {
+			if (!$.isArray(profile[val])) {
+				if (profile[val] === true) {
+					formObject.find('.booltrue[name="' + val + '"]').attr('checked', true);
+				} else if (profile[val] === false) {
+					formObject.find('.boolfalse[name="' + val + '"]').attr('checked', true);
+				} else {
+					inputEl = formObject.find('input[name="' + val + '"]');
+					textEl = formObject.find('textarea[name="' + val + '"]');
+					if ((inputEl.get(0) !== undefined) && (inputEl.attr('type') === 'text')) {
+						inputEl.val(profile[val]);
+					} else if (textEl.get(0) !== undefined) {
+						textEl.val(profile[val]);
+					}
+				}
+			} else {
+				selectEl = formObject.find('select[name="' + val + '"]');
+				fieldEl = formObject.find('fieldset[name="' + val + '"]');
+				if (selectEl.get(0) !== undefined) {
+					for (i = 0; i < profile[val].length; i += 1) {
+						selectEl.find('option[value="' + profile[val][i] + '"]').attr('selected', true);
+					}
+				} else if (fieldEl.get(0) !== undefined) {
+					for (i = 0; i < profile[val].length; i += 1) {
+						fieldEl.find('input[name="' + profile[val][i] + '"]').attr('checked', true);
+					}
+				}
+			}
+		}
+	},
 	changeProfile: function (e) {
 		"use strict";
-		console.log(e);
 		var targetName = e.target.selectedOptions[0].innerText;
-		console.log(targetName);
+		e.data.self.useProfile(e.target.form, e.data.profiles[targetName]);
 	},
-	addProfilesToForm: function (selectObject, profiles) {
+	addProfilesToForm: function (container, profiles) {
 		"use strict";
-		var profile;
-		selectObject.on('change', this.changeProfile);
+		var profile,
+			selectObject = container.find('select[name="profiles"]');
+		console.dir(profiles);
+		selectObject.on('change', {self: this, profiles: profiles}, this.changeProfile);
 		for (profile in profiles) {
 			selectObject.append($('<option name="' + profile + '">' + profile + '</option>'));
 		}

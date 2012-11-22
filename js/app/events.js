@@ -67,7 +67,6 @@ Events = {
 		"use strict";
 		var jsonData = this.connect.send();
 		Events.build.buildForm(jsonData, container);
-		container.show();
 	}
 };
 /*-------------------------------constant handlers--------------------------------*/
