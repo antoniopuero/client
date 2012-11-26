@@ -37,35 +37,50 @@ Builder.prototype = {
 			prop;
 		this.addProfilesToForm(container, config.profiles);
 		for (prop in config) {
-			if ((config[prop] === 'int') || (config[prop] === 'float')) {
-				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
-				digits.append(element);
-			} else if (config[prop] === 'string') {
-				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
-				other.append(element);
-			} else if (config[prop] === 'bool') {
-				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><span>True:</span><input type="radio" name="' + prop + '" class="booltrue"><span>False:</span><input type="radio" name="' + prop + '" class="boolfalse">');
-				other.append(element);
-			} else if (config[prop] === 'blob') {
-				element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob input" cols="30" rows="15">');
-				other.append(element);
-			} else if (config[prop].type === 'list_check') {
-				element =  $('<fieldset class="checklist" name="' + prop + '"></fieldset>');
-				element.append($('<legend>' + this.firstLetter(prop.toString()) + '</legend>'));
-				i = 0;
-				while (config[prop][i] !== undefined) {
-					element.append($('<p><input type="checkbox" name="' + config[prop][i] + '" class="list_checks">' + config[prop][i] + '</p>'));
-					i += 1;
+			if (config.hasOwnProperty(prop)) {
+				if (typeof config[prop] === 'string') {
+					switch (config[prop]) {
+					case 'int':
+					case 'float':
+						element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
+						digits.append(element);
+						break;
+					case 'string':
+						element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
+						other.append(element);
+						break;
+					case 'bool':
+						element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><span>True:</span><input type="radio" name="' + prop + '" class="booltrue"><span>False:</span><input type="radio" name="' + prop + '" class="boolfalse">');
+						other.append(element);
+						break;
+					case 'blob':
+						element =  $('<p>' + this.firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob input" cols="30" rows="15">');
+						other.append(element);
+						break;
+					}
+				} else {
+					switch (config[prop].type) {
+					case 'list_check':
+						element =  $('<fieldset class="checklist" name="' + prop + '"></fieldset>');
+						element.append($('<legend>' + this.firstLetter(prop.toString()) + '</legend>'));
+						i = 0;
+						while (config[prop][i] !== undefined) {
+							element.append($('<p><input type="checkbox" name="' + config[prop][i] + '" class="list_checks">' + config[prop][i] + '</p>'));
+							i += 1;
+						}
+						lists.append(element);
+						break;
+					case 'list_option':
+						element =  $('<select class="optionlist" multiple="multiple" name="' + prop + '"></select>');
+						i = 0;
+						while (config[prop][i] !== undefined) {
+							element.append($('<option value="' + config[prop][i] + '" class="list_option">' + config[prop][i] + '</option>'));
+							i += 1;
+						}
+						lists.append('<p>' + this.firstLetter(prop.toString()) + '</p><p>Use ctrl key to multiple select</p>').append(element);
+						break;
+					}
 				}
-				lists.append(element);
-			} else if (config[prop].type === 'list_option') {
-				element =  $('<select class="optionlist" multiple="multiple" name="' + prop + '"></select>');
-				i = 0;
-				while (config[prop][i] !== undefined) {
-					element.append($('<option value="' + config[prop][i] + '" class="list_option">' + config[prop][i] + '</option>'));
-					i += 1;
-				}
-				lists.append('<p>' + this.firstLetter(prop.toString()) + '</p><p>Use ctrl key to multiple select</p>').append(element);
 			}
 		}
 		container.find('ul.tabs').tabs('div.panes > div');

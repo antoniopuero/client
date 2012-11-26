@@ -75,6 +75,7 @@ $(document).ready(function () {
 	var formC = $('#' + Events.build.formId),
 		tableC = $('#' + Events.build.tableId),
 		treeC = $('#' + Events.build.treeId),
+		menuItems = $('.top_menu_items_item'),
 		serverEvent = new EventSource(Events.connect.eventSource),
 		keyFlag = true,
 		ctrlKey = true,
@@ -105,6 +106,7 @@ $(document).ready(function () {
 	}, false);
 
 	if (formC.get(0) !== undefined) {
+		$('a[href="form.php"]').parent().addClass('active');
 		Events.formConstruct(formC);
 	}
 
@@ -236,6 +238,12 @@ $(document).ready(function () {
 		}
 	});
 	if (treeC.get(0) !== undefined) {
+		$('a[href="index.php"]').parent().addClass('active');
 		Events.treeSet(treeC);
 	}
+
+	menuItems.on('click', function (e) {
+		menuItems.removeClass('active');
+		$(this).addClass('active');
+	});
 });
