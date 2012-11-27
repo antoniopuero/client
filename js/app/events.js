@@ -109,6 +109,10 @@ $(document).ready(function () {
 		$('a[href="form.php"]').parent().addClass('active');
 		Events.formConstruct(formC);
 	}
+	if (treeC.get(0) !== undefined) {
+		$('a[href="index.php"]').parent().addClass('active');
+		Events.treeSet(treeC);
+	}
 
 	formC.delegate('.int', 'keypress', function (e) {
 		keyFlag = true;
@@ -237,10 +241,6 @@ $(document).ready(function () {
 			Events.build.destroyActionMenu($('#action_menu'));
 		}
 	});
-	if (treeC.get(0) !== undefined) {
-		$('a[href="index.php"]').parent().addClass('active');
-		Events.treeSet(treeC);
-	}
 
 	menuItems.on('click', function (e) {
 		menuItems.removeClass('active');
