@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10005c61-2d68-4849-a14e-c0350db6dd63" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/events.js" afterPath="$PROJECT_DIR$/js/app/events.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/canvas.js" afterPath="$PROJECT_DIR$/js/app/canvas.js" />
     </list>
     <ignored path="Code.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -135,10 +134,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="visual.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="visual.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/visual.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="32" selection-start="332" selection-end="332" vertical-scroll-proportion="0.3508772">
+            <state line="10" column="32" selection-start="332" selection-end="332" vertical-scroll-proportion="-6.8965516">
               <folding />
             </state>
           </provider>
@@ -153,10 +152,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="canvas.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="canvas.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/app/canvas.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="21" selection-start="224" selection-end="224" vertical-scroll-proportion="0.0">
+            <state line="34" column="47" selection-start="953" selection-end="953" vertical-scroll-proportion="0.6327212">
               <folding />
             </state>
           </provider>
@@ -210,8 +209,8 @@
         <option value="$PROJECT_DIR$/views/footer.php" />
         <option value="$PROJECT_DIR$/js/app/events.js" />
         <option value="$PROJECT_DIR$/css/canvas.css" />
-        <option value="$PROJECT_DIR$/js/app/canvas.js" />
         <option value="$PROJECT_DIR$/visual.html" />
+        <option value="$PROJECT_DIR$/js/app/canvas.js" />
       </list>
     </option>
   </component>
@@ -680,13 +679,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/app/canvas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="21" selection-start="224" selection-end="224" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/canvas.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="15" selection-start="206" selection-end="206" vertical-scroll-proportion="0.0">
@@ -696,7 +688,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/visual.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="32" selection-start="332" selection-end="332" vertical-scroll-proportion="0.3508772">
+        <state line="10" column="32" selection-start="332" selection-end="332" vertical-scroll-proportion="-6.8965516">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/app/canvas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="47" selection-start="953" selection-end="953" vertical-scroll-proportion="0.6327212">
           <folding />
         </state>
       </provider>

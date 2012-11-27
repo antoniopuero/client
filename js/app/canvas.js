@@ -28,9 +28,11 @@ $(document).ready(function () {
 			y = $('#coordinate-y'),
 			colorContainer = $('.coordinate-color'),
 			mouseX,
-			mouseY;
-		mouseX = e.offsetX;
-		mouseY = e.offsetY;
+			mouseY,
+			offset;
+		offset = $(this).offset();
+		mouseX = e.offsetX || (e.pageX - offset.left);
+		mouseY = e.offsetY || (e.pageY - offset.top);
 		x.text(mouseX);
 		y.text(mouseY);
 		color = ctx.getImageData(mouseX, mouseY, 1, 1).data;
