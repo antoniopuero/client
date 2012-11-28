@@ -5,6 +5,7 @@ require.config({
 		dataTable  : 'libs/jquery.dataTables.min',
 		jsTree     : 'libs/jquery.jstree',
 		tools      : 'libs/jquery.tools.min',
+		eventSource: 'libs/eventsource',
 
 		/*    Application    */
 		common   : 'app/common',
@@ -34,7 +35,7 @@ require.config({
 			deps : ['jquery']
 		},
 		events : {
-			deps : ['jquery', 'common', 'layer']
+			deps : ['jquery', 'eventSource', 'common', 'layer']
 		}
 	}
 });

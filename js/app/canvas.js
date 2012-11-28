@@ -1,13 +1,13 @@
 $(document).ready(function () {
 	"use strict";
 	var hex = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'],
-		canvas = $('#plot'),
+		canvas = $('#plot1'),
 		ctx = canvas.get(0).getContext('2d'),
 		x,
 		maxX,
 		y,
 		maxY,
-		increment = 2,
+		increment = 5,
 		randomColor = function () {
 			var randColor = '#',
 				i;
@@ -22,7 +22,7 @@ $(document).ready(function () {
 			ctx.fillRect(x, y, increment, increment);
 		}
 	}
-	canvas.mousemove(function (e) {
+	canvas.on('mousemove', function (e) {
 		var color,
 			x = $('#coordinate-x'),
 			y = $('#coordinate-y'),
@@ -36,7 +36,6 @@ $(document).ready(function () {
 		x.text(mouseX);
 		y.text(mouseY);
 		color = ctx.getImageData(mouseX, mouseY, 1, 1).data;
-		console.log(color);
 		colorContainer.css('background', 'rgb(' + color[0] + ',' + color[1] + ',' + color[2] + ')');
-	})
+	});
 });

@@ -76,7 +76,6 @@ $(document).ready(function () {
 		tableC = $('#' + Events.build.tableId),
 		treeC = $('#' + Events.build.treeId),
 		menuItems = $('.top_menu_items_item'),
-		serverEvent = new EventSource(Events.connect.eventSource),
 		keyFlag = true,
 		ctrlKey = true,
 		keyNames = {
@@ -89,22 +88,23 @@ $(document).ready(function () {
 			'RIGHT': 39
 		},
 		prop;
-	serverEvent.addEventListener('message', function (e) {
-		var wind = $('<div id="statusbar"></div>');
-		wind.append('Current status of the work: ' + e.data);
-		$('#container_wrapper').append(wind);
-		wind = $('#container_wrapper').find(wind);
-		wind.show();
-		wind.animate({
-			top: '93%',
-			height: '7%'
-		}, 400);
-		setTimeout(function () {
-			wind.hide();
-			wind.detach();
-		}, 2000);
-	}, false);
-
+	if (window.EventSource) {
+		(new EventSource(Events.connect.eventSource)).addEventListener('message', function (e) {
+			var wind = $('<div id="statusbar"></div>');
+			wind.append('Current status of the work: ' + e.data);
+			$('#container_wrapper').append(wind);
+			wind = $('#container_wrapper').find(wind);
+			wind.show();
+			wind.animate({
+				top: '93%',
+				height: '7%'
+			}, 400);
+			setTimeout(function () {
+				wind.hide();
+				wind.detach();
+			}, 2000);
+		}, false);
+	}
 	if (formC.get(0) !== undefined) {
 		$('a[href="form.php"]').parent().addClass('active');
 		Events.formConstruct(formC);
