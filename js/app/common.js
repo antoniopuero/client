@@ -133,7 +133,7 @@ var Builder = function (config) {
 			}
 		},
 		changeProfile = function (e) {
-			var targetName = e.target.selectedOptions[0].innerText;
+			var targetName = e.target.value;
 			if (targetName === '<user>') {
 				resetForm(e.target.form);
 			} else {
@@ -143,7 +143,6 @@ var Builder = function (config) {
 		addProfilesToForm = function (container, profiles) {
 			var profile,
 				selectObject = container.find('select[name="profiles"]');
-			console.dir(profiles);
 			selectObject.on('change', {profiles: profiles}, changeProfile);
 			for (profile in profiles) {
 				selectObject.append($('<option name="' + profile + '" class="prf">' + profile + '</option>'));

@@ -4,8 +4,6 @@
     <list default="true" id="10005c61-2d68-4849-a14e-c0350db6dd63" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/common.js" afterPath="$PROJECT_DIR$/js/app/common.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/events.js" afterPath="$PROJECT_DIR$/js/app/events.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/app/layer.js" afterPath="$PROJECT_DIR$/js/app/layer.js" />
     </list>
     <ignored path="Code.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,10 +28,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="common.js" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="common.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/app/common.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="364" column="21" selection-start="12852" selection-end="12852" vertical-scroll-proportion="-15.88">
+            <state line="144" column="73" selection-start="5530" selection-end="5530" vertical-scroll-proportion="5.3631287">
               <folding />
             </state>
           </provider>
@@ -91,7 +89,7 @@
       <file leaf-file-name="test.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server-proc/test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="20" selection-start="134" selection-end="134" vertical-scroll-proportion="0.0">
+            <state line="14" column="0" selection-start="329" selection-end="329" vertical-scroll-proportion="-9.655172">
               <folding />
             </state>
           </provider>
@@ -110,15 +108,17 @@
         <entry file="file://$PROJECT_DIR$/js/app/layer.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="3" column="21" selection-start="75" selection-end="88" vertical-scroll-proportion="-2.4">
-              <folding />
+              <folding>
+                <marker date="1354540755051" expanded="true" signature="53:2105" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="events.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="events.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/app/events.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="6" selection-start="142" selection-end="313" vertical-scroll-proportion="0.46875">
+            <state line="7" column="13" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -162,9 +162,9 @@
         <option value="$PROJECT_DIR$/css/canvas.css" />
         <option value="$PROJECT_DIR$/visual.html" />
         <option value="$PROJECT_DIR$/js/app/canvas.js" />
-        <option value="$PROJECT_DIR$/js/app/common.js" />
         <option value="$PROJECT_DIR$/js/app/layer.js" />
         <option value="$PROJECT_DIR$/js/app/events.js" />
+        <option value="$PROJECT_DIR$/js/app/common.js" />
       </list>
     </option>
   </component>
@@ -514,13 +514,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server-proc/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="20" selection-start="134" selection-end="134" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/libs/eventsource.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="2" selection-start="212" selection-end="212" vertical-scroll-proportion="0.3533569" />
@@ -554,13 +547,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/app/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="364" column="21" selection-start="12852" selection-end="12852" vertical-scroll-proportion="-15.88">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="37" column="45" selection-start="662" selection-end="662" vertical-scroll-proportion="0.0">
@@ -571,13 +557,29 @@
     <entry file="file://$PROJECT_DIR$/js/app/layer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="21" selection-start="75" selection-end="88" vertical-scroll-proportion="-2.4">
-          <folding />
+          <folding>
+            <marker date="1354540755051" expanded="true" signature="53:2105" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/app/events.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="6" selection-start="142" selection-end="313" vertical-scroll-proportion="0.46875">
+        <state line="7" column="13" selection-start="142" selection-end="142" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server-proc/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="0" selection-start="329" selection-end="329" vertical-scroll-proportion="-9.655172">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/app/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="144" column="73" selection-start="5530" selection-end="5530" vertical-scroll-proportion="5.3631287">
           <folding />
         </state>
       </provider>
