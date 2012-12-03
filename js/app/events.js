@@ -1,11 +1,11 @@
 /** @namespace */
-Events = {
-	build : new Builder({
+var Events = {
+	build : Builder({
 		formId: 'form_container',
 		tableId: 'table_container',
 		treeId: 'tree'
 	}),
-	connect: new Connection({
+	connect: Connection({
 		jobInfo: "/server-proc/job.php",
 		newJob: "/server-proc/new_job.php",
 		eventSource: "/server-proc/test.php",
