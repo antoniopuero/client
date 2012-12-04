@@ -36,7 +36,7 @@ var Builder = function (config) {
 						switch (config[prop]) {
 						case 'int':
 						case 'float':
-							element =  $('<p>' + firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
+							element =  $('<p>' + firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" placeholder="Only ' + config[prop] +  ' value" size="40">');
 							digits.append(element);
 							break;
 						case 'string':
@@ -48,7 +48,7 @@ var Builder = function (config) {
 							other.append(element);
 							break;
 						case 'blob':
-							element =  $('<p>' + firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob input" cols="30" rows="15">');
+							element =  $('<p>' + firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob input" >');
 							other.append(element);
 							break;
 						}
@@ -71,7 +71,7 @@ var Builder = function (config) {
 								element.append($('<option value="' + config[prop][i] + '" class="list_option">' + config[prop][i] + '</option>'));
 								i += 1;
 							}
-							lists.append('<p>' + firstLetter(prop.toString()) + '</p><p>Use ctrl key to multiple select</p>').append(element);
+							lists.append('<p>' + firstLetter(prop.toString()) + '</p><span class ="help-block">Use ctrl key to multiple select</span>').append(element);
 							break;
 						}
 					}
@@ -287,7 +287,7 @@ var Builder = function (config) {
 					},
 					{
 						"fnRender" : function (oObj) {
-							return '<div id="clickers_' + oObj.aData.id + '"><a href="#" class="row_do row_delete"></a><a href="#" class="row_do row_stop"></a><a href="#" class="row_do row_start"></a></div>';
+							return '<div id="clickers_' + oObj.aData.id + '"><a href="#" class="row_do row_delete"><i class="icon-remove"></i></a><a href="#" class="row_do row_stop"><i class="icon-stop"></i></a><a href="#" class="row_do row_start"><i class="icon-play"></i></a></div>';
 						},
 						"bSortable": false,
 						"sWidth": "80px",
@@ -316,7 +316,7 @@ var Builder = function (config) {
 				if (value.type === 'set') {
 					treeElement.data.title = value.name;
 					treeElement.data.attr = {id: value.id, 'class': 'jobset'};
-					treeElement.data.icon = 'images/folder.png';
+					treeElement.data.icon = 'images/folder_open.png';
 					if (value.subjobs !== undefined) {
 						treeElement.children = prepareForTree(value.subjobs);//recursive calling in mean that jobsets can contain jobsets and workflows
 					}
@@ -324,7 +324,7 @@ var Builder = function (config) {
 				} else if (value.type === 'workflow') {
 					treeElement.data.title = value.name;
 					treeElement.data.attr = {id: value.id, 'class': 'workflow'};
-					treeElement.data.icon = 'images/alg.png';
+					treeElement.data.icon = 'images/charts.png';
 					treeObject.push(treeElement);
 				}
 			});

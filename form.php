@@ -24,7 +24,8 @@
                             </div>
                         </div>
                     </div>
-                <button class="send_button">Send</button>
+                <button class="send_button btn btn-info">Send</button>
+                <button class="save_profile btn">Save profile</button>
             </form>
 	</div>
 <?php include 'views/footer.php'; ?>

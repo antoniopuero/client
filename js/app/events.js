@@ -75,7 +75,6 @@ $(document).ready(function () {
 	var formC = $('#' + Events.build.formId),
 		tableC = $('#' + Events.build.tableId),
 		treeC = $('#' + Events.build.treeId),
-		menuItems = $('.top_menu_items_item'),
 		keyFlag = true,
 		ctrlKey = true,
 		keyNames = {
@@ -106,11 +105,9 @@ $(document).ready(function () {
 		}, false);
 	}
 	if (formC.get(0) !== undefined) {
-		$('a[href="form.php"]').parent().addClass('active');
 		Events.formConstruct(formC);
 	}
 	if (treeC.get(0) !== undefined) {
-		$('a[href="index.php"]').parent().addClass('active');
 		Events.treeSet(treeC);
 	}
 
@@ -170,14 +167,6 @@ $(document).ready(function () {
 			container = $('#action_menu'),
 			i,
 			max = elems.length;
-		/*if (e.target.checked) {
-			boolFlag = true;
-		} else {
-			boolFlag = false;
-		}
-		for (max = elems.length; i < max; i += 1) {
-			elems[i].checked = boolFlag;
-		}*/
 		Events.checkedRows = [];
 		if (e.target.checked) {
 			for (i = 0; i < max; i += 1) {
@@ -240,10 +229,5 @@ $(document).ready(function () {
 		if (Events.checkedRows.length <= 2) {
 			Events.build.destroyActionMenu($('#action_menu'));
 		}
-	});
-
-	menuItems.on('click', function (e) {
-		menuItems.removeClass('active');
-		$(this).addClass('active');
 	});
 });

@@ -1,5 +1,4 @@
-			</div><!--container_wrapper-->
-		</div><!--inner-->
+			</div><!--container-fluid-->
 </div><!--wrapper-->
 </body>
 </html>

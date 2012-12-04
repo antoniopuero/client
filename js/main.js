@@ -6,6 +6,7 @@ require.config({
 		jsTree     : 'libs/jquery.jstree',
 		tools      : 'libs/jquery.tools.min',
 		eventSource: 'libs/eventsource',
+		bootstrap  : 'libs/bootstrap',
 
 		/*    Application    */
 		common   : 'app/common',
@@ -14,6 +15,9 @@ require.config({
 	},
 
 	shim: {
+		bootstrap: {
+			deps: ['jquery']
+		},
 		dataTable: {
 			deps: ['jquery']
 		},
@@ -28,6 +32,7 @@ require.config({
 				'jquery',
 				'dataTable',
 				'jsTree',
+				'bootstrap',
 				'tools'
 			]
 		},
