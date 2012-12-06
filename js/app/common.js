@@ -10,7 +10,7 @@ var Builder = function (config) {
 			return word.substr(0, 1).toUpperCase() + word.substr(1);
 		},
 		buildActionMenu = function (node) {
-			node.prepend($('<a href="#" class="row_do row_delete"></a><a href="#" class="row_do row_stop"></a><a href="#" class="row_do row_start"></a>'))
+			node.prepend($('<a href="#" class="row_do row_delete"><i class="icon-remove"></i></a><a href="#" class="row_do row_stop"><i class="icon-stop"></i></a><a href="#" class="row_do row_start"><i class="icon-play"></i></a>'));
 		},
 		destroyActionMenu = function (node) {
 			node.find('a').detach();
@@ -22,6 +22,64 @@ var Builder = function (config) {
 		*@param {undefined|DOM Object} container Optional argument for recursive calling of builForm for different types and tabs of data.
 		*@returns {DOM Object} form Builded form
 		*/
+		addKeyException = function(element, type) {
+			var keyFlag = true,
+				ctrlKey = true,
+				keyNames = {
+					'TAB': 9,
+					'ENTER': 13,
+					'BACKSPACE': 8,
+					'CTRL': 17,
+					'ALT': 18,
+					'LEFT': 37,
+					'RIGHT': 39
+				},
+				keyName;
+			if (type === 'int') {
+				element.on('keypress', function (e) {
+					keyFlag = true;
+					ctrlKey = true;
+					for (keyName in keyNames) {
+						if ((keyNames.hasOwnProperty(keyName)) && (e.keyCode === keyNames[keyName])) {//for Firefox!!!
+							keyFlag = false;
+						}
+					}
+					if (e.ctrlKey && (
+						(e.which === 97)//ctrl+a
+							|| (e.which === 99)//ctrl+c
+							|| (e.which === 118)//ctrl+v
+							|| (e.which === 120)//ctrl+x
+						)) {
+						ctrlKey = false;
+					}
+					if (ctrlKey && keyFlag && ((e.which < 48) || (e.which > 57))) {
+						return false;
+					}
+				});
+			} else if (type === 'float') {
+				element.on('keypress', function (e) {
+					keyFlag = true;
+					ctrlKey = true;
+					for (keyName in keyNames) {
+						if (keyNames.hasOwnProperty(keyName) && (e.keyCode === keyNames[keyName])) { // for Firefox!
+							keyFlag = false;
+						}
+					}
+					if (e.ctrlKey && (
+						(e.which === 97)//ctrl+a
+							|| (e.which === 99)//ctrl+c
+							|| (e.which === 118)//ctrl+v
+							|| (e.which === 120)//ctrl+x
+						)) {
+						ctrlKey = false;
+					}
+					if ((ctrlKey && keyFlag && ((e.which < 46) || (e.which > 57) || (e.which === 47)))
+							|| (($(this).val().match(/\./)) && (e.which === 46))) {
+						return false;
+					}
+				});
+			}
+		},
 		buildForm = function (config, container) {
 			var digits = container.find('div[id$=digits]'),
 				other = container.find('div[id$=other]'),
@@ -36,19 +94,20 @@ var Builder = function (config) {
 						switch (config[prop]) {
 						case 'int':
 						case 'float':
-							element =  $('<p>' + firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" placeholder="Only ' + config[prop] +  ' value" size="40">');
+							element =  $('<div class="input-prepend control-group"><span class="add-on">' + firstLetter(prop.toString()) + '</span><input type="text" name="' + prop + '" class="span2 input" placeholder="Only ' + config[prop] +  ' value"></div>');
+							addKeyException(element, config[prop]);
 							digits.append(element);
 							break;
 						case 'string':
-							element =  $('<p>' + firstLetter(prop.toString()) + '</p><input type="text" name="' + prop + '" class="' + config[prop] + ' input" size="40">');
+							element =  $('<div class="input-prepend control-group"><span class="add-on">' + firstLetter(prop.toString()) + '</span><input type="text" name="' + prop + '" class="span2 input"></div>');
 							other.append(element);
 							break;
 						case 'bool':
-							element =  $('<p>' + firstLetter(prop.toString()) + '</p><span>True:</span><input type="radio" name="' + prop + '" class="booltrue"><span>False:</span><input type="radio" name="' + prop + '" class="boolfalse">');
+							element =  $('<div class="control-group"><p>' + firstLetter(prop.toString()) + '</p><label class="radio">true<input type="radio" name="' + prop + '" class="booltrue"></label><label class="radio">false<input type="radio" name="' + prop + '" class="boolfalse"></label></div>');
 							other.append(element);
 							break;
 						case 'blob':
-							element =  $('<p>' + firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob input" >');
+							element =  $('<div class="control-group"><p>' + firstLetter(prop.toString()) + '</p><textarea name="' + prop + '" class="blob input" rows="5"></textarea></div>');
 							other.append(element);
 							break;
 						}
@@ -59,7 +118,7 @@ var Builder = function (config) {
 							element.append($('<legend>' + firstLetter(prop.toString()) + '</legend>'));
 							i = 0;
 							while (config[prop][i] !== undefined) {
-								element.append($('<p><input type="checkbox" name="' + config[prop][i] + '" class="list_checks">' + config[prop][i] + '</p>'));
+								element.append($('<label class="checkbox"><input type="checkbox" name="' + config[prop][i] + '" class="list_checks">' + config[prop][i] + '</label>'));
 								i += 1;
 							}
 							lists.append(element);
@@ -77,13 +136,13 @@ var Builder = function (config) {
 					}
 				}
 			}
-			container.find('ul.tabs').tabs('div.panes > div');
 		},
 		addErrorMsq = function (elem, msg) {
-			elem.after($('<span class="error_message">' + msg + '</span>'));
+			elem.parent().addClass('error');
+			elem.after($('<span class="help-inline">' + msg + '</span>'));
 		},
 		delErrorMsg = function (form) {
-			form.find('.error_message').detach();
+			form.find('.error').removeClass('error');
 		},
 		resetForm = function (formObject) {
 			formObject = $(formObject);
@@ -216,7 +275,6 @@ var Builder = function (config) {
 				}
 			});
 			if (error === 'error') {
-				addErrorMsq($('.send_button'), 'Please, fill in all the mandatory information!');
 				return false;
 			} else {
 				return json;
@@ -255,7 +313,7 @@ var Builder = function (config) {
 			}
 			columnsConfig.push({'mData': null});
 			columnsConfig.push({'mData': null});
-			tr.append($('<th><input type="checkbox" id="check_all"></th><th></th>'));
+			tr.append($('<th><input type="checkbox" id="check_all"></th><th id="action_buttons"></th>'));
 			table.append($('<thead></thead>').append(tr)).append($('<tbody></tbody>'));
 			container.append(table);
 			table = container.find(table).dataTable({
@@ -361,6 +419,8 @@ var Builder = function (config) {
 		getJSON: getJSON,
 		buildTable: buildTable,
 		buildTree: buildTree,
+		destroyActionMenu: destroyActionMenu,
+		buildyActionMenu: buildActionMenu,
 		/*constants*/
 		formId: formId,
 		tableId: tableId,

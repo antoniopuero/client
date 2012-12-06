@@ -4,7 +4,6 @@ require.config({
 		jquery     : 'libs/jquery-1.8.0.min',
 		dataTable  : 'libs/jquery.dataTables.min',
 		jsTree     : 'libs/jquery.jstree',
-		tools      : 'libs/jquery.tools.min',
 		eventSource: 'libs/eventsource',
 		bootstrap  : 'libs/bootstrap',
 
@@ -32,8 +31,7 @@ require.config({
 				'jquery',
 				'dataTable',
 				'jsTree',
-				'bootstrap',
-				'tools'
+				'bootstrap'
 			]
 		},
 		layer : {

@@ -74,19 +74,7 @@ $(document).ready(function () {
 	"use strict";
 	var formC = $('#' + Events.build.formId),
 		tableC = $('#' + Events.build.tableId),
-		treeC = $('#' + Events.build.treeId),
-		keyFlag = true,
-		ctrlKey = true,
-		keyNames = {
-			'TAB': 9,
-			'ENTER': 13,
-			'BACKSPACE': 8,
-			'CTRL': 17,
-			'ALT': 18,
-			'LEFT': 37,
-			'RIGHT': 39
-		},
-		prop;
+		treeC = $('#' + Events.build.treeId);
 	if (window.EventSource) {
 		(new EventSource(Events.connect.eventSource)).addEventListener('message', function (e) {
 			var wind = $('<div id="statusbar"></div>');
@@ -110,61 +98,13 @@ $(document).ready(function () {
 	if (treeC.get(0) !== undefined) {
 		Events.treeSet(treeC);
 	}
-
-	formC.delegate('.int', 'keypress', function (e) {
-		keyFlag = true;
-		ctrlKey = true;
-		for (prop in keyNames) {
-			if ((e.keyCode === keyNames[prop])) {//for Firefox!!!
-				keyFlag = false;
-			}
-		}
-		if (e.ctrlKey && (
-				(e.which === 97)//ctrl+a
-				|| (e.which === 99)//ctrl+c
-				|| (e.which === 118)//ctrl+v
-				|| (e.which === 120)//ctrl+x
-			)) {
-			ctrlKey = false;
-		}
-		if (ctrlKey && keyFlag && ((e.which < 48) || (e.which > 57))) {
-			return false;
-		}
-	});
-	formC.delegate('.float', 'keypress', function (e) {
-		var prop;
-		keyFlag = true;
-		ctrlKey = true;
-		for (prop in keyNames) {
-			if (e.keyCode === keyNames[prop]) { // for Firefox!
-				keyFlag = false;
-			}
-		}
-		if (e.ctrlKey && (
-				(e.which === 97)//ctrl+a
-				|| (e.which === 99)//ctrl+c
-				|| (e.which === 118)//ctrl+v
-				|| (e.which === 120)//ctrl+x
-			)) {
-			ctrlKey = false;
-		}
-		if ((ctrlKey && keyFlag && (
-				(e.which < 46)
-				|| (e.which > 57)
-				|| (e.which === 47)
-			))
-				|| (($(this).val().match(/\./)) && (e.which === 46))
-				) {
-			return false;
-		}
-	});
 	formC.delegate('.send_button', 'click', function (e) {
 		e.preventDefault();
 		console.log(Events.build.getJSON($('#new_project')));
 	});
 	tableC.delegate('#check_all', 'change', function (e) {
 		var elems = $('.row_checkers'),
-			container = $('#action_menu'),
+			container = $('#action_buttons'),
 			i,
 			max = elems.length;
 		Events.checkedRows = [];
@@ -229,5 +169,9 @@ $(document).ready(function () {
 		if (Events.checkedRows.length <= 2) {
 			Events.build.destroyActionMenu($('#action_menu'));
 		}
+	});
+	/*bootstrap*/
+	$('.dropdown-menu').find('form').click(function (e) {
+		e.stopPropagation();
 	});
 });
