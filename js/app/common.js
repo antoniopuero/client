@@ -1,11 +1,14 @@
 /**
 *@constructor
 */
-var Builder = function (config) {
+var Builder = function () {
 	"use strict";
-	var formId = config.formId,
-		tableId = config.tableId,
-		treeId = config.treeId,
+	var formC,
+		tableC,
+		treeC,
+		connection,
+		checkedRows = [],
+		table,
 		firstLetter = function (word) {
 			return word.substr(0, 1).toUpperCase() + word.substr(1);
 		},
@@ -412,18 +415,163 @@ var Builder = function (config) {
 				}
 			});
 			return container;
+		},
+		/**tableJobSet calls when we're about to create table of jobs.
+		 *@method tableJobSet
+		 *@param {eventObject} e Contains all needed information.
+		 *@param {number|string} id Indentifier of some job[set].
+		 */
+		tableJobSet = function (e, id) {
+			var jsonData;
+			e.preventDefault();
+			tableC.empty();
+			id = e.data || id;
+			if ((id !== null) && (id !== undefined)) {
+				jsonData = connection.getJobs(parseInt(id, 10));
+				table = buildTable(jsonData, tableC);
+			} else {
+				jsonData = connection.getJobs();
+				table = buildTable(jsonData, tableC);
+			}
+			tableC.show();
+		},
+		/**treeSet calls when we're about to create tree of jobs.
+		 *@method treeSet
+		 *@param {DOM Object} tree DOM Object fetched by jQuery.
+		 */
+		treeSet = function (tree) {
+			tree = buildTree(connection.getJobsTree(), tree);
+			tree.bind('select_node.jstree', function (event, data) {
+				var target = data.rslt.obj.find('a');//a contains all information, which we added in build proccess
+				if (target.hasClass('jobset')) {
+					tableJobSet(event, target.attr('id'));
+				} else if (target.hasClass('workflow')) {
+					//console.log('workflow');
+				}
+			});
+		},
+		formConstruct = function (container) {
+			var jsonData = connection.send();
+			buildForm(jsonData, container);
+		},
+		initConnection = function (connectConfig) {
+			connection = Connection(connectConfig);
+		},
+		useEventSource = function () {
+			(new EventSource(connection.eventSource)).addEventListener('message', function (e) {
+				var wind = $('<div id="statusbar"></div>');
+				wind.append(e.data);
+				$('#container_wrapper').append(wind);
+				wind = $('#container_wrapper').find(wind);
+				wind.show();
+				wind.animate({
+					top: '93%',
+					height: '7%'
+				}, 400);
+				setTimeout(function () {
+					wind.hide();
+					wind.detach();
+				}, 2000);
+			}, false);
+		},
+		delegating = function () {
+			formC.delegate('.send_button', 'click', function (e) {
+				e.preventDefault();
+				console.log(getJSON($('#new_project')));//todo!!!
+			});
+			tableC.delegate('#check_all', 'change', function (e) {
+				var elems = $('.row_checkers'),
+					container = $('#action_buttons'),
+					i,
+					max = elems.length;
+				checkedRows = [];
+				if (e.target.checked) {
+					for (i = 0; i < max; i += 1) {
+						checkedRows.push(parseInt($(elems[i]).val().substr(6), 10));
+					}
+					elems.attr('checked', true);
+					destroyActionMenu(container);
+					buildActionMenu(container);
+				} else {
+					checkedRows = [];
+					elems.attr('checked', false);
+					destroyActionMenu(container);
+				}
+			});
+			tableC.delegate('.row_checkers', 'change', function (e) {
+				var elems = $('.row_checkers'),
+					container = $('#action_buttons'),
+					boolFlag;
+				boolFlag = Array.prototype.some.call(elems, function (elem) {
+					return (elem.checked === true);
+				});
+				if (e.target.checked) {
+					if (boolFlag) {
+						destroyActionMenu(container);
+					}
+					checkedRows.push(parseInt(e.target.value.substr(6), 10));
+					console.log(checkedRows.length);
+					if (checkedRows.length >= 2) {
+						buildActionMenu(container);
+					}
+				} else {
+					checkedRows = checkedRows.filter(function (value) {
+						return value !== parseInt(e.target.value.substr(6), 10);
+					});
+					if (checkedRows.length < 2) {
+						console.log('destroy');
+						destroyActionMenu(container);
+					}
+				}
+			});
+			tableC.delegate('#action_buttons a.row_delete', 'click', function (e) {
+				var length = checkedRows.length,
+					i,
+					pos;
+				e.preventDefault();
+				for (i = 0; i < length; i += 1) {
+					pos = table.fnGetPosition($('tr#' + checkedRows[i]).get(0));
+					table.fnDeleteRow(pos);
+				}
+				$('#check_all').attr('checked', false);
+				destroyActionMenu($('#action_buttons'));
+				checkedRows = [];
+			});
+			tableC.delegate('tr div a.row_delete', 'click', function (e) {
+				var self = $(this),
+					pos;
+				pos = table.fnGetPosition($('tr#' + self.parent().attr('id').substr(9)).get(0));
+				table.fnDeleteRow(pos);
+				checkedRows = checkedRows.filter(function (value, key) {
+					return value !== parseInt(self.parent().attr('id').substr(9), 10);
+				});
+				if (checkedRows.length <= 2) {
+					destroyActionMenu($('#action_button'));
+				}
+			});
+		},
+		init = function (config) {
+			formC = $('#' + config.formId);
+			tableC = $('#' + config.tableId);
+			treeC = $('#' + config.treeId);
+			useEventSource();
+			if (formC.get(0) !== undefined) {
+				formConstruct(formC);
+			}
+			if (treeC.get(0) !== undefined) {
+				treeSet(treeC);
+			}
+			delegating();
 		};
 	return {
 		/*methods*/
+		init: init,
+		initConnection: initConnection,
 		buildForm: buildForm,
 		getJSON: getJSON,
 		buildTable: buildTable,
 		buildTree: buildTree,
 		destroyActionMenu: destroyActionMenu,
-		buildyActionMenu: buildActionMenu,
-		/*constants*/
-		formId: formId,
-		tableId: tableId,
-		treeId: treeId
+		buildyActionMenu: buildActionMenu
 	};
 };

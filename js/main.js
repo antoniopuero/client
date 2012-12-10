@@ -31,14 +31,15 @@ require.config({
 				'jquery',
 				'dataTable',
 				'jsTree',
-				'bootstrap'
+				'bootstrap',
+				'layer'
 			]
 		},
 		layer : {
 			deps : ['jquery']
 		},
 		events : {
-			deps : ['jquery', 'eventSource', 'common', 'layer']
+			deps : ['jquery', 'eventSource', 'common']
 		}
 	}
 });
