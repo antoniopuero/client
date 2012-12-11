@@ -557,7 +557,9 @@ var Builder = function () {
 			formC = $('#' + config.formId);
 			tableC = $('#' + config.tableId);
 			treeC = $('#' + config.treeId);
-			useEventSource();
+			if (config.useEventSource) {
+				useEventSource();
+			}
 			if (formC.get(0) !== undefined) {
 				formConstruct(formC);
 			}

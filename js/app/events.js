@@ -13,7 +13,8 @@ $(document).ready(function () {
 	build.init({
 		formId: 'form_container',
 		tableId: 'table_container',
-		treeId: 'tree'
+		treeId: 'tree',
+		useEventSource: true
 	});
 	/*bootstrap*/
 	$('.dropdown-menu').find('form').click(function (e) {
