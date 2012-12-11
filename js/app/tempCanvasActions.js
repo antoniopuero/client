@@ -8,7 +8,7 @@ $(document).ready(function () {
 		maxX,
 		y,
 		maxY,
-		increment = 3,
+		increment = 20,
 		randomColor = function () {
 			var randColor = '#',
 				i;
@@ -17,12 +17,15 @@ $(document).ready(function () {
 			}
 			return randColor;
 		};
-	for (x = 0, maxX = parseInt(canvas.css('width'), 10); x < maxX; x += increment) {
-		for (y = 0, maxY = parseInt(canvas.css('height'), 10); y < maxY; y += increment) {
-			ctx.fillStyle = randomColor();
-			ctx.fillRect(x, y, increment, increment);
+	var render = function () {
+		for (x = 0, maxX = parseInt(canvas.css('width'), 10); x < maxX; x += increment) {
+			for (y = 0, maxY = parseInt(canvas.css('height'), 10); y < maxY; y += increment) {
+				ctx.fillStyle = randomColor();
+				ctx.fillRect(x, y, increment, increment);
+			}
 		}
-	}
+	};
+	setInterval(render, 1);
 	canvas.on('mousemove', function (e) {
 		var color,
 			x = $('#coordinate-x'),

@@ -5,6 +5,7 @@ var Connection = function (config) {
 		newJobSource = config.newJob,
 		eventSource = config.eventSource,
 		liteJob = config.jobSetTree,
+		sendDataSource = config.sendData,
 		ajax = function (source) {
 			var rslt;
 			$.ajax({
@@ -25,6 +26,19 @@ var Connection = function (config) {
 			var data = getNewJob();
 			//do something with data
 			return data;
+		},
+		sendData = function (data) {
+			var rslt;
+			$.ajax({
+				type: 'POST',
+				url: sendDataSource,
+				data: data,
+				async: false,
+				success: function (data) {
+					rslt = data;
+				}
+			});
+			return rslt;
 		},
 		/**
 		*isLocalStorageAvailable checks the localStorage in client browser.
@@ -77,6 +91,7 @@ var Connection = function (config) {
 	return {
 		/*methods*/
 		send: send,
+		sendData: sendData,
 		getNewJob: getNewJob,
 		getJobs: getJobs,
 		getJobsTree: getJobsTree,

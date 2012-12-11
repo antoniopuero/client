@@ -16,7 +16,7 @@
 </head>
 <body>
     <script type="text/javascript" data-main="js/main.js" src="js/libs/require.js"></script>
-	<div id='wrapper '>
+	<div id='wrapper'>
 		<div class="navbar">
             <div class="navbar-inner">
                 <ul class="nav">

@@ -423,9 +423,11 @@ var Builder = function () {
 		 */
 		tableJobSet = function (e, id) {
 			var jsonData;
-			e.preventDefault();
+			if (e !== undefined) {
+				e.preventDefault();
+				id = e.data || id;
+			}
 			tableC.empty();
-			id = e.data || id;
 			if ((id !== null) && (id !== undefined)) {
 				jsonData = connection.getJobs(parseInt(id, 10));
 				table = buildTable(jsonData, tableC);
@@ -476,8 +478,10 @@ var Builder = function () {
 		},
 		delegating = function () {
 			formC.delegate('.send_button', 'click', function (e) {
+				var rslt;
 				e.preventDefault();
-				console.log(getJSON($('#new_project')));//todo!!!
+				rslt = connection.sendData(getJSON($('#new_project')));
+				console.log(rslt);
 			});
 			tableC.delegate('#check_all', 'change', function (e) {
 				var elems = $('.row_checkers'),
@@ -519,7 +523,6 @@ var Builder = function () {
 						return value !== parseInt(e.target.value.substr(6), 10);
 					});
 					if (checkedRows.length < 2) {
-						console.log('destroy');
 						destroyActionMenu(container);
 					}
 				}
@@ -560,18 +563,13 @@ var Builder = function () {
 			}
 			if (treeC.get(0) !== undefined) {
 				treeSet(treeC);
+				tableJobSet();
 			}
 			delegating();
 		};
 	return {
 		/*methods*/
 		init: init,
-		initConnection: initConnection,
-		buildForm: buildForm,
-		getJSON: getJSON,
-		buildTable: buildTable,
-		buildTree: buildTree,
-		destroyActionMenu: destroyActionMenu,
-		buildyActionMenu: buildActionMenu
+		initConnection: initConnection
 	};
 };

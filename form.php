@@ -1,6 +1,5 @@
 <?php include 'views/header.php'; ?>
 	<div id='form_container' class ="span9 offset1">
-        <div><em>You can change default profile on profiles tab</em></div>
             <form id ="new_project" name="data" method="post">
                     <div id="tabs" class="tabbable span5">
                         <ul class="nav nav-tabs">

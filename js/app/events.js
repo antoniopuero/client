@@ -7,7 +7,8 @@ $(document).ready(function () {
 		jobInfo: "/server-proc/job.php",
 		newJob: "/server-proc/new_job.php",
 		eventSource: "/server-proc/test.php",
-		jobSetTree: "/server-proc/lite_job.php"
+		jobSetTree: "/server-proc/lite_job.php",
+		sendData: "/server-proc/send.php"
 	});
 	build.init({
 		formId: 'form_container',
