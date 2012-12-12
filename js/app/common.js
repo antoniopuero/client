@@ -303,21 +303,29 @@ var Builder = function () {
 		buildTable = function (jobsObject, container) {
 			var table = $('<table id="table"></table>'),
 				tr = $('<tr></tr>'),
+				tfootTR = $('<tr></tr>'),
 				columnsConfig = [
 					{ 'mData': 'name' },
 					{ 'mData': 'type' },
 					{ 'mData': 'status' }
 				],
+				parameterCount = 3,
 				key;
 			tr.append($('<th>Name</th><th>Type</th><th>Status</th>'));
+			tfootTR.append($('<th></th><th></th><th></th>'));
 			for (key in jobsObject[0].parameters) {
 				tr.append($('<th>' + key + '</th>'));
+				tfootTR.append($('<th><input type="text" placeholder="Filter by ' + key + '" id="search-' + parameterCount + '" class="search_init input-small"></th>'));
 				columnsConfig.push({ 'mData': 'parameters.' + key });
+				parameterCount += 1;
 			}
 			columnsConfig.push({'mData': null});
 			columnsConfig.push({'mData': null});
+			tfootTR.append($('<th></th><th></th>'));
 			tr.append($('<th><input type="checkbox" id="check_all"></th><th id="action_buttons"></th>'));
-			table.append($('<thead></thead>').append(tr)).append($('<tbody></tbody>'));
+			table.append($('<thead></thead>').append(tr))
+				.append($('<tbody></tbody>'))
+				.append($('<tfoot></tfoot>').append(tfootTR));
 			container.append(table);
 			table = container.find(table).dataTable({
 				"bProcessing": true,
@@ -359,6 +367,10 @@ var Builder = function () {
 					$('div[id^="clickers_"]').hide();
 					//self.addEventToSetRow(table);
 				}
+			});
+			table.find(".search_init").keyup(function () {
+				var id = $(this).attr('id').split("-")[1];
+					table.fnFilter(this.value, id);
 			});
 			return table;
 		},
@@ -447,7 +459,8 @@ var Builder = function () {
 				var target = data.rslt.obj.find('a');//a contains all information, which we added in build proccess
 				if (target.hasClass('jobset')) {
 					tableJobSet(event, target.attr('id'));
-				} else if (target.hasClass('workflow')) {
+				}
+				if (target.hasClass('workflow')) {
 					//console.log('workflow');
 				}
 			});
