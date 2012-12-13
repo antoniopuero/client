@@ -25,7 +25,7 @@ $(document).ready(function () {
 			}
 		}
 	};
-	setInterval(render, 1);
+	render();
 	canvas.on('mousemove', function (e) {
 		var color,
 			x = $('#coordinate-x'),
